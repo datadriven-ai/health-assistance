@@ -1,0 +1,29 @@
+<app-container (openSideNav)="drawer.toggle()"></app-container>
+<mat-drawer class="full-height" #drawer>
+  <app-side-nav></app-side-nav>
+</mat-drawer>
+<mat-drawer-container class="full-width">
+  <div>
+   <!-- <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>-->
+    <mat-table class="example-container" #table [dataSource]="dataSource">
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="['position', 'name', 'weight', 'symbol']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</mat-drawer-container>

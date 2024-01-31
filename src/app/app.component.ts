@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {Router, RouterOutlet} from '@angular/router';
+import {EnvironmentBarComponent} from "./shared/components/environment-bar/environment-bar.component";
+import {MaterialModule} from "./shared/material.module";
 
 @Component({
-  selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports:[RouterOutlet,
+    MaterialModule,
+    EnvironmentBarComponent],
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
