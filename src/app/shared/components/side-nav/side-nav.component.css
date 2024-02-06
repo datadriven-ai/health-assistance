@@ -1,0 +1,37 @@
+.container{
+  width:250px;
+}
+
+#menu {
+  padding: 0 3%;
+  margin-bottom: 32px;
+}
+
+.routerButton {
+  grid-template-columns: auto;
+  justify-content: start;
+  align-items: center;
+  grid-gap: 20px;
+  margin: 10px;
+  height: 50px;
+  width: 220px;
+  font-size: 18px;
+  border: 1px solid #80808042;
+  background-color: red;
+}
+
+mat-icon{
+  margin-right: 10px;
+  margin-bottom: -4px;
+}
+
+button.mat-flat-button {
+  width: 150px;
+  border-radius: 0 0 16px 16px;
+}
+
+.routerButton.active {
+  background-color: #d39f9f;
+  color: black;
+  border: 1px solid #91211e;
+}

@@ -1,9 +1,45 @@
-.example-spacer {
-  flex: 1 1 auto;
-}
+
 mat-toolbar{
   position: sticky;
+  background-color: #a6a2a2;
   top: 0;
   z-index: 1000;
   display: flex;
+}
+.title{
+  margin: 20px;
+  font-weight: 200;
+  font-size: 30px;
+}
+.titleButton{
+}
+
+mat-icon{
+  background: #e5bdbd;
+  color: #f66c6c;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+#profile{
+  padding: 8px 16px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+.user{
+  display: flex;
+  width: 200px;
+  height: 60px;
+  margin-left: 22px;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button{
+  margin-left: 40px;
+}
+.name-user{
+  margin-top: -3px;
 }

@@ -1,0 +1,29 @@
+<mat-accordion>
+  <ng-container>
+    <mat-expansion-panel class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-panel-title fxLayoutAlign="space-between center" class="primary-color">
+          <span>Dati Anagrafici</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column" fxLayoutGap="8px">
+        <div fxLayoutAlign="end">
+          <button mat-flat-button color="primary">Salva</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel *hasRole="'medic'" class="mat-elevation-z0">
+      <mat-expansion-panel-header>
+        <mat-panel-title fxLayoutAlign="space-between center" class="primary-color">
+          <span>Specializzazione</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column" fxLayoutGap="8px">
+        <div fxLayoutAlign="end">
+          <button mat-flat-button color="primary">Salva</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </ng-container>
+</mat-accordion>
+

@@ -1,0 +1,18 @@
+
+mat-form-field{
+  margin: 5px;
+}
+.button-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.primary-form{
+  width: 445px;
+}
+.secondary-form{
+  width: 700px;
+}
+.third-form{
+  width:190px;
+}

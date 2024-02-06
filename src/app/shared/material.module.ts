@@ -28,6 +28,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 const COMPONENTS = [
   MatCardModule,
@@ -45,6 +46,7 @@ const COMPONENTS = [
   MatDialogModule,
   MatSidenavModule,
   MatListModule,
+  MatFormFieldModule,
   MatProgressSpinnerModule,
   MatTooltipModule,
   MatProgressBarModule,
@@ -59,6 +61,8 @@ const COMPONENTS = [
   MatPaginatorModule,
   MatBadgeModule,
   MatTableModule,
+  MatDialogModule,
+  MatSelectModule,
 ];
 
 @NgModule({

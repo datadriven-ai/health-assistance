@@ -1,0 +1,48 @@
+
+
+.search-form{
+  margin: 5px;
+  width: 280px;
+}
+.field{
+  width: 280px;
+}
+
+.example-full-width {
+  width:400px;
+  margin-left: 40px;
+}
+
+
+.subtitle{
+  font-size: 15px;
+}
+.container-text{
+  width: 400px;
+  display: flex;
+  text-align: end;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  margin-top: 60px;
+  margin-left: 40px;
+  margin-right: 20px;
+}
+.text{
+  font-size: 12px;
+  font-style: normal;
+}
+
+.title-container{
+  height: 70px;
+  align-items: center;
+}
+
+.mdc-text-field--outlined .mat-mdc-form-field-infix{
+  padding: 0 !important;
+  height: 20px;
+}
+.text-container{
+  display: flex;
+  text-align: justify;
+}

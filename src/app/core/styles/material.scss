@@ -1,0 +1,159 @@
+
+
+
+.mat-snack-bar-container {
+  border-radius: 30px;
+  background: $primary-color;
+
+  .mat-button {
+    color: $secondary-color;
+  }
+}
+
+
+mat-card.mat-card {
+  border-radius: 24px;
+  padding: 16px 8px;
+  box-shadow: unset !important;
+  border: 1px solid #80808042;
+  .mat-card-title {
+    color: $primary-color;
+    margin-bottom: 16px;
+    min-height: 24px;
+    line-height: 24px;
+    font-size: 20px;
+  }
+  .mat-card-actions {
+    margin-bottom: 0;
+  }
+}
+
+mat-card.cardHover {
+  background-color: $warn-color;
+  color: white;
+}
+
+button.mat-flat-button.mat-primary:hover:not(.mat-button-disabled) {
+  background-color: $primary-dark-color;
+  color: white;
+}
+
+button.mat-flat-button.mat-warn:hover {
+  background-color: $warn-dark-color;
+}
+
+mat-tab-group.small-tabs .mat-tab-label{
+  min-width: unset;
+  padding: 0 12px;
+}
+
+.mat-flat-button.mat-button-disabled.mat-button-disabled {
+  background-color: darkgray;
+  color: white;
+}
+
+mat-tab-group .mat-tab-body-content {
+  overflow: hidden auto;
+}
+
+
+.mat-tab-body.mat-tab-body-active {
+  padding-top: 16px;
+  max-width: 1200px;
+}
+
+
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: $secondary-color;
+}
+
+.snackBar {
+  border-radius: 16px;
+}
+
+button.mat-stroked-button,
+button.mat-flat-button {
+  border-radius: 16px;
+  min-height: 35px;
+}
+
+input.mat-input-element {
+  caret-color: black;
+}
+
+.mat-card mat-divider.mat-divider-horizontal {
+  left: 3%;
+  width: 94%;
+}
+
+mat-dialog-container.mat-dialog-container {
+  border-radius: 32px;
+  position: relative;
+  overflow: visible;
+  color: $dark-color;
+}
+
+.no-padding mat-dialog-content {
+  margin: 0;
+  border-radius: 32px;
+  overflow: visible;
+}
+
+.no-padding mat-dialog-container{
+  padding: 0;
+}
+
+.base-modal {
+  height: 600px;
+  width: 850px;
+}
+
+.mat-form-field-label {
+  color: $primary-color;
+}
+
+
+
+mat-form-field.form-no-margin .mat-form-field-wrapper {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+mat-accordion .mat-expansion-panel-header {
+  padding: 0 8px;
+}
+
+.mat-expansion-panel-content {
+  max-height: 60vh;
+  overflow: auto !important;
+}
+
+mat-paginator.mat-paginator {
+  background: transparent;
+}
+
+mat-form-field.whiteForm {
+  background-color: #F9F9F9;
+}
+mat-form-field.form-low-margin .mat-form-field-wrapper {
+  margin: 0;
+  padding-bottom: 8px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-suffix {
+  display: flex;
+  align-items: center;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-suffix mat-icon:hover {
+  cursor: pointer;
+}
+
+.mat-tooltip {
+  font-size: 14px;
+}
+
+mat-horizontal-stepper .mat-horizontal-content-container {
+  padding: 0;
+}

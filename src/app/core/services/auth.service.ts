@@ -9,11 +9,6 @@ import {environment} from '../../../environments/environment';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import * as Moment from 'moment';
-import {SessionStore} from "../stores/session/session.store";
-import {SessionQuery} from "../stores/session/session.query";
-import {LogService} from "./log.service";
-import jwtDecode from "jwt-decode";
-import {UserService} from "../../website/users/services/user.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

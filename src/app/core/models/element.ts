@@ -1,6 +1,9 @@
 export interface Invoice {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  numberInvoice: number,
+  protocol: string,
+  state: string,
+  channel: string,
+  result: string ,
+  creationDate: string,
+  emissionDate: string
 }

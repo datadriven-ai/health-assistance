@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Poppins, sans-serif; }
 
 .full-width{
   width:100%;
@@ -9,7 +8,45 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .full-height{
   height: 100%;
 }
+
 .full{
   height: 100%;
   width: 100%;
+}
+
+.m-10{
+  margin: 10px;
+}
+.m-20{
+  margin: 20px;
+}
+.mt-10{
+margin-top: 10px;
+}
+
+.mt-20{
+  margin-top: 20px;
+}
+
+.mb-20{
+  margin-bottom: 20px;
+}
+.ml15{
+margin-left: 15px;
+}
+
+.ml20 {
+  margin-left: 20px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.flex-container{
+  display: flex;
+}
+
+.button-custom{
+  width: 150px;
 }
