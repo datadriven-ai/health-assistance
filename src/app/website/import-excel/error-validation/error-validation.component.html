@@ -1,0 +1,26 @@
+<mat-card class="m-20">
+  <div class="m-20 error-container full-width">
+    <mat-icon class="error-color m-20">error</mat-icon>
+    <div class="full-width">
+      <h3>Errore in fase di validazione:</h3>
+      <mat-list class="ml20">
+        <div mat-subheader>Errori nel file:</div>
+        @for (folder of folders; track folder) {
+          <mat-list-item>
+            <mat-icon matListItemIcon>play_arrow</mat-icon>
+            <div  matListItemTitle>{{folder.name}}</div>
+            <div matListItemLine>{{folder.updated}}</div>
+          </mat-list-item>
+        }
+      </mat-list>
+    </div>
+  </div>
+  <div class="m-10">
+    <mat-divider></mat-divider>
+  </div>
+  <div class="button-container">
+      <span style="margin-left: 96px" mat-subheader>Impossibile inviare file, Ricaricare file valido </span>
+      <span class="example-spacer"></span>
+      <button disabled color="primary" class="m-10 button-custom" mat-flat-button> Invio</button>
+  </div>
+</mat-card>

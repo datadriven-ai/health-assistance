@@ -6,11 +6,14 @@
           <span>Dati Anagrafici</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div fxLayout="column" fxLayoutGap="8px">
-        <div fxLayoutAlign="end">
-          <button mat-flat-button color="primary">Salva</button>
-        </div>
-      </div>
+      <mat-list class="ml20">
+        @for (folder of folders; track folder) {
+          <mat-list-item>
+            <div  matListItemTitle>{{folder.name}}</div>
+            <div matListItemLine>{{folder.updated}}</div>
+          </mat-list-item>
+        }
+      </mat-list>
     </mat-expansion-panel>
     <mat-expansion-panel *hasRole="'medic'" class="mat-elevation-z0">
       <mat-expansion-panel-header>

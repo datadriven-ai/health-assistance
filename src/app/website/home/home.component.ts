@@ -8,29 +8,30 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {LoadingExcelComponent} from "../loading-excel/loading-excel.component";
 import {RouterModule} from "@angular/router";
 import {TssFormComponent} from "../tss-form/tss-form.component";
+import {FilterModalComponent} from "../filter-modal/filter-modal.component";
+import {Protocol} from "../../core/models/protocol";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MaterialModule, RouterModule, TssFormComponent],
+  imports: [CommonModule, MaterialModule, RouterModule, TssFormComponent, FilterModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
-  showSearch: boolean= false
+  showSearch: boolean = false;
+  showFilters: boolean = false;
+  date = new Date();
   constructor(
     private dialog: MatDialog) {}
   @Output() openSideNav = new EventEmitter();
-  displayedColumns = ['numberInvoice', 'protocol', 'state', 'channel', 'result', 'payment', 'creationDate', 'emissionDate'];
+  displayedColumns = ['protocol', 'send', 'date'];
 
-  dataSource : Invoice[] = [
-    {numberInvoice: 1, protocol: 'Hydrogen', state: 'ciao', channel: 'H', result: 'ciao' , creationDate: 'ciao', emissionDate: 'ciao'},
-    {numberInvoice: 1, protocol: 'Hydrogen', state: 'ciao', channel: 'H', result: 'ciao' , creationDate: 'ciao', emissionDate: 'ciao'},
-    {numberInvoice: 1, protocol: 'Hydrogen', state: 'ciao', channel: 'H', result: 'ciao' , creationDate: 'ciao', emissionDate: 'ciao'},
-    {numberInvoice: 1, protocol: 'Hydrogen', state: 'ciao', channel: 'H', result: 'ciao' , creationDate: 'ciao', emissionDate: 'ciao'},
-    {numberInvoice: 1, protocol: 'Hydrogen', state: 'ciao', channel: 'H', result: 'ciao' , creationDate: 'ciao', emissionDate: 'ciao'},
-    {numberInvoice: 1, protocol: 'Hydrogen', state: 'ciao', channel: 'H', result: 'ciao' , creationDate: 'ciao', emissionDate: 'ciao'},
-
+  dataSource : Protocol[] = [
+    {protocol: 1, send: 'Inviata', date: new Date()},
+    {protocol: 1, send: 'Non inviata', date: new Date()},
+    {protocol: 1, send: 'Inviata', date: new Date()},
+    {protocol: 1, send: 'Inviata', date: new Date()},
   ];
 
   ngOnInit() {

@@ -10,13 +10,35 @@
       <div>
         <div class="m-10">
           <h3>Caricamento File Excel</h3>
+          <div class="form-box">
+            <mat-form-field class="primary-form" appearance="outline">
+              <mat-select placeholder="Select"  >
+                <mat-option value="Dott.">Prova</mat-option>
+                <mat-option value="Dott.ssa">Prova</mat-option>
+                <mat-option value="Prof.">Prova</mat-option>
+                <mat-option value="Prof.ssa">Prova</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="primary-form" appearance="outline">
+              <mat-select placeholder="Select"  >
+                <mat-option value="Dott.">Prova</mat-option>
+                <mat-option value="Dott.ssa">Prova</mat-option>
+                <mat-option value="Prof.">Prova</mat-option>
+                <mat-option value="Prof.ssa">Prova</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
           <app-drag-drop-zone></app-drag-drop-zone>
         </div>
         <mat-dialog-actions class="button-container">
           <span class="example-spacer"></span>
-          <button color="accent" class="m-10 button-custom" mat-flat-button>Resetta</button>
-          <button color="primary" class="m-10 button-custom" mat-flat-button> Salva </button>
+          <button (click)="showValidation = !showValidation" color="primary" class="m-10 button-custom" mat-flat-button> Validazione</button>
         </mat-dialog-actions>
       </div>
     </mat-card>
+
+  <div *ngIf="showValidation">
+    <app-error-validation></app-error-validation>
+    <app-confirm-validation></app-confirm-validation>
+  </div>
 </div>

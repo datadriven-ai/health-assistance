@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
@@ -63,6 +64,10 @@ const COMPONENTS = [
   MatTableModule,
   MatDialogModule,
   MatSelectModule,
+  MatFormFieldModule,
+  MatDatepickerModule,
+  FormsModule,
+  ReactiveFormsModule
 ];
 
 @NgModule({

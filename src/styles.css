@@ -50,3 +50,22 @@ margin-left: 15px;
 .button-custom{
   width: 150px;
 }
+
+mat-form-field{
+  margin: 5px;
+}
+
+.confirm-color{
+  color: #008c3b
+}
+
+.error-color{
+  color: #e30000;
+}
+
+.button-container{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+}

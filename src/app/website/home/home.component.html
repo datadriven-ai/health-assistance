@@ -5,70 +5,58 @@
   </div>
     <mat-card class="table-card m-20">
       <mat-card-content>
-        <h3>Nome Utente</h3>
+        <h3>Mario Rossi </h3>
         <div class="text-container">
-          <mat-icon>watch_later</mat-icon> <span class="ml20">Data ultimo invio: </span>
+          <mat-icon>watch_later</mat-icon> <span class="ml20">Ultima Data Invio: <span style="font-weight: bold">{{date | date}}</span> </span>
         </div>
         <br>
         <div  class="text-container">
-          <mat-icon>watch_later</mat-icon> <span class="ml20">Ultima Modifica Password: </span>
+          <mat-icon>watch_later</mat-icon> <span class="ml20">Ultima Modifica Password: <span style="font-weight: bold">{{date | date}}</span> </span>
         </div>
         <br>
       </mat-card-content>
     </mat-card>
     <mat-card class="table-card m-20">
       <div class="m-10">
-        <div class=" title-container flex-container m-10">
+        <div class=" title-container m-10">
           <h3 >Protocolli</h3>
           <span class="example-spacer"></span>
-          <form *ngIf="showSearch" class="search-form">
-            <mat-form-field class="field" appearance="outline">
-              <mat-label>Cerca</mat-label>
-              <input matInput placeholder="Placeholder">
-            </mat-form-field>
-          </form>
-          <div>
-            <button (click)="showSearch = !showSearch" mat-icon-button> <mat-icon>search</mat-icon></button>
-            <button mat-icon-button><mat-icon>more_vert</mat-icon></button>
+          <div *ngIf="showSearch" class="container-search">
+            <form  class="search-form">
+              <mat-form-field class="field">
+                <mat-label>Cerca</mat-label>
+                <input matInput placeholder="cerca">
+              </mat-form-field>
+            </form>
           </div>
+          <div class="filters-container">
+            <div>
+              <button (click)="showSearch = !showSearch" mat-icon-button> <mat-icon>search</mat-icon></button>
+              <button (click)="showFilters= !showFilters" mat-icon-button><mat-icon>filter_list</mat-icon></button>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div *ngIf="showFilters">
+          <app-filter-modal></app-filter-modal>
         </div>
         <mat-divider></mat-divider>
       </div>
 
       <mat-table class="example-container" #table [dataSource]="dataSource">
-        <ng-container matColumnDef="numberInvoice">
-          <mat-header-cell *matHeaderCellDef> N. Fattura </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.numberInvoice}} </mat-cell>
-        </ng-container>
         <ng-container matColumnDef="protocol">
-          <mat-header-cell *matHeaderCellDef> N. Protocollo  </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> N. Protocollo </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.protocol}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="state">
-          <mat-header-cell *matHeaderCellDef> Stato </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
+        <ng-container matColumnDef="send">
+          <mat-header-cell *matHeaderCellDef> Inviata </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.send}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="channel">
-          <mat-header-cell *matHeaderCellDef> Canale </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.channel}} </mat-cell>
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.date | date}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="result">
-          <mat-header-cell *matHeaderCellDef> Esito </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.result}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="payment">
-          <mat-header-cell *matHeaderCellDef> Metodo Pagamento </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.payment}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="creationDate">
-          <mat-header-cell *matHeaderCellDef>Data Creazione </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.creationDate}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="emissionDate">
-          <mat-header-cell *matHeaderCellDef> Data Emissione</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.emissionDate}} </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef=" ['numberInvoice', 'protocol', 'state', 'channel', 'result', 'payment', 'creationDate', 'emissionDate'];"></mat-header-row>
+        <mat-header-row *matHeaderRowDef=" ['protocol', 'send', 'date'];"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
       <mat-paginator [length]="100"

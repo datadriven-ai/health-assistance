@@ -1,4 +1,6 @@
 .container{
+  display: block;
+  position: relative;
   width:250px;
 }
 
