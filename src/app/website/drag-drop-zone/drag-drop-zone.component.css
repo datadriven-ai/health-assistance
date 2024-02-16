@@ -1,0 +1,30 @@
+.uploadfilecontainer {
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  min-height: 200px;
+  height: 100%;
+  margin: 5px;
+  border: 2px dashed lightgray;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.uploadfilecontainer:hover {
+  cursor: pointer;
+  background-color: darkgray !important;
+  opacity: 0.8;
+}
+.space{
+  width:100%;
+  height:100%;
+  display:flex;
+  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+.zone-text{
+  font-size: 15px;
+}

@@ -1,0 +1,12 @@
+
+<div class="uploadfilecontainer" (click)="fileInput.click()" dragDrop (onFileDropped)="uploadFile($event)" fxLayoutAlign="center center">
+  <input hidden type="file" #fileInput (change)="uploadClickFile($event.target)" accept="image/jpeg,image/gif,image/png,application/pdf">
+  <div class="space">
+    <mat-icon *ngIf="!file">cloud_upload</mat-icon>
+    <span class="zone-text" *ngIf="!file" [innerHTML]="zoneText"></span>
+  </div>
+  <div class="space" *ngIf="file">
+    <span ><mat-icon>description</mat-icon></span>
+    <span class="zone-text">{{file?.name}}</span>
+  </div>
+</div>
