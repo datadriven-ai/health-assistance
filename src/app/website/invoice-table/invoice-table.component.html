@@ -3,72 +3,73 @@
     <h2 class="ml20"> Fatture</h2>
     <span class="example-spacer"> </span>
   </div>
-<mat-card class="table-card m-20">
-  <div class="m-10">
-    <div class=" title-container m-10">
-      <h3 >Lista fatture </h3>
-      <span class="example-spacer"></span>
-      <div *ngIf="showSearch" class="container-search">
-        <form  class="search-form">
-          <mat-form-field class="field">
-            <mat-label>Cerca</mat-label>
-            <input matInput placeholder="cerca">
-          </mat-form-field>
-        </form>
-      </div>
-      <div class="filters-container">
-        <div>
-          <button (click)="showSearch = !showSearch" mat-icon-button> <mat-icon>search</mat-icon></button>
-          <button (click)="showFilters= !showFilters" mat-icon-button><mat-icon>filter_list</mat-icon></button>
+  <mat-card class="table-card m-20">
+    <div class="m-10">
+      <div class=" title-container">
+        <h3 >Lista Fatture</h3>
+        <span class="example-spacer"></span>
+        <div class="filters-container">
+          <div>
+            <button (click)="showSearch = !showSearch" mat-icon-button> <mat-icon>search</mat-icon></button>
+            <button (click)="showFilters= !showFilters" mat-icon-button><mat-icon>filter_list</mat-icon></button>
+          </div>
         </div>
       </div>
+      <mat-divider></mat-divider>
+      <div  *ngIf="showSearch">
+        <app-search-modal (formSearch)="search($event)"></app-search-modal>
+      </div>
+      <div *ngIf="showFilters">
+        <app-filter-modal
+          (form)="filter($event)"
+          [invoice]="true"
+        ></app-filter-modal>
+      </div>
+      <mat-divider></mat-divider>
     </div>
-    <mat-divider></mat-divider>
-    <div *ngIf="showFilters">
-      <app-filter-modal></app-filter-modal>
-    </div>
-    <mat-divider></mat-divider>
-  </div>
-
-  <mat-table class="example-container" #table [dataSource]="data">
-    <ng-container matColumnDef="numberInvoice">
-      <mat-header-cell *matHeaderCellDef> N. Fattura </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.numberInvoice}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="protocol">
-      <mat-header-cell *matHeaderCellDef> N. Protocollo  </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.protocol}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="state">
-      <mat-header-cell *matHeaderCellDef> Stato </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="channel">
-      <mat-header-cell *matHeaderCellDef> Canale </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.channel}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="result">
-      <mat-header-cell *matHeaderCellDef> Esito </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.result}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="payment">
-      <mat-header-cell *matHeaderCellDef> Metodo Pagamento </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.payment}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="creationDate">
-      <mat-header-cell *matHeaderCellDef>Data Creazione </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.creationDate}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="emissionDate">
-      <mat-header-cell *matHeaderCellDef> Data Emissione</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.emissionDate}} </mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef=" ['numberInvoice', 'protocol', 'state', 'channel', 'result', 'payment', 'creationDate', 'emissionDate'];"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-  <mat-paginator [length]="100"
-                 [pageSize]="10"
-                 [pageSizeOptions]="[5, 10, 25, 100]"
-                 aria-label="Select page">
-  </mat-paginator>
-</mat-card>
+    <table mat-table [dataSource]="dataSource" class="example-spacer">
+      <ng-container matColumnDef="invoiceId" >
+        <th  mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.invoiceId}}</td>
+      </ng-container>
+      <ng-container matColumnDef="numberInvoice" >
+        <th  mat-header-cell *matHeaderCellDef>N. Fatture</th>
+        <td mat-cell *matCellDef="let element">{{ element.numberInvoice}}</td>
+      </ng-container>
+      <ng-container matColumnDef="protocol" >
+        <th  mat-header-cell *matHeaderCellDef>N. Protocollo</th>
+        <td mat-cell *matCellDef="let element">{{ element.protocol}}</td>
+      </ng-container>
+      <ng-container matColumnDef="payment" >
+        <th  mat-header-cell *matHeaderCellDef>Metodo Pagamento</th>
+        <td mat-cell *matCellDef="let element">{{element.payment}}</td>
+      </ng-container>
+      <ng-container matColumnDef="emissionDate">
+        <th  mat-header-cell *matHeaderCellDef>Data di Emissione</th>
+        <td mat-cell *matCellDef="let element">{{element.emissionDate | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="fiscalCode">
+        <th  mat-header-cell *matHeaderCellDef>Codice Fiscale</th>
+        <td mat-cell *matCellDef="let element">{{element.fiscalCode}}</td>
+      </ng-container>
+      <ng-container matColumnDef="amount">
+        <th  mat-header-cell *matHeaderCellDef>Importo</th>
+        <td mat-cell *matCellDef="let element">{{element.amount}}€</td>
+      </ng-container>
+      <ng-container matColumnDef="paymentData">
+        <th  mat-header-cell *matHeaderCellDef>Data di Pagamento</th>
+        <td mat-cell *matCellDef="let element">{{element.paymentData | date: 'dd/MM/yyyy' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th  mat-header-cell *matHeaderCellDef>Stato</th>
+        <td mat-cell *matCellDef="let element">{{element.status }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let emprow; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      #paginatorPageSize
+      [pageSizeOptions]="pageSizes"
+      showFirstLastButtons
+    ></mat-paginator>
+  </mat-card>

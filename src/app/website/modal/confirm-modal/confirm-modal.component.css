@@ -1,0 +1,12 @@
+.confirm_container{
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.warning_box{
+  width: 100%;
+  align-content: center;
+  align-items: center;
+  display: flex;
+}

@@ -1,37 +1,44 @@
 <div class="full-width">
   <div class="flex-container">
-    <h2  class="ml20">Credenziali Utente</h2>
+    <h2  class="ml20">Credenziali Portale Tessera Sanitaria</h2>
     <span class="example-spacer"></span>
   </div>
   <mat-card class="m-20">
-      <mat-divider ></mat-divider>
-      <mat-dialog-content class="m-10">
+      <div class="m-10">
+        <h3 class="ml5">Utente:</h3>
         <mat-spinner color="primary" *ngIf="false; else formArea"></mat-spinner>
-        <ng-template #formArea>
+        <form [formGroup]="form">
+          <ng-template #formArea>
           <div class="row-line">
             <mat-form-field class="primary-form" appearance="outline" >
-              <mat-label>Username</mat-label>
-              <input matInput >
+              <mat-label>Codice Identificativo</mat-label>
+              <input formControlName="username"  matInput >
             </mat-form-field>
-            <mat-form-field  class="primary-form" appearance="outline" >
-              <mat-label>Password</mat-label>
-              <input type="password" matInput >
+            <mat-form-field   class="primary-form" appearance="outline" >
+              <mat-label>Parola Chiave</mat-label>
+              <div class="flex-container">
+                <input formControlName="password" [type]=" eye ? 'text' : 'password'" matInput >
+                <mat-icon (click)="eye = !eye">remove_red_eye</mat-icon>
+              </div>
             </mat-form-field>
-            <mat-form-field class="secondary-form" appearance="outline" >
-              <mat-label>Email</mat-label>
-              <input  matInput>
-            </mat-form-field>
-            <mat-form-field class="third-form" appearance="outline" >
-              <mat-label>PIN CODE</mat-label>
-              <input  matInput>
+            <mat-form-field   class="primary-form" appearance="outline" >
+              <mat-label> Reinserisci Parola Chiave</mat-label>
+              <div class="flex-container">
+                <input formControlName="re_password" [type]=" reinsert_eye ? 'text' : 'password'" matInput >
+                <mat-icon (click)="reinsert_eye = !reinsert_eye">remove_red_eye</mat-icon>
+              </div>
             </mat-form-field>
           </div>
-        </ng-template>
-      </mat-dialog-content>
+          </ng-template>
+        </form>
+      </div>
+      <div *ngIf="errorLabel" class="m-20 flex-container">
+        <mat-icon class="error-color">warning</mat-icon> <span class="ml5 error-color"> Le password non sono Uguali</span>
+      </div>
       <mat-dialog-actions class="button-container">
         <span class="example-spacer"></span>
-        <button color="accent" class="m-10 button-custom" mat-flat-button>Resetta</button>
-        <button color="primary" class="m-10 button-custom" mat-flat-button> Salva </button>
+        <button (click)="resetForm()" color="accent" class="m-10 button-custom" mat-flat-button>Resetta</button>
+        <button [disabled]="!form.valid || errorLabel" (click)="saveForm()" color="primary" class="m-10 button-custom" mat-flat-button> Salva </button>
       </mat-dialog-actions>
   </mat-card>
 </div>

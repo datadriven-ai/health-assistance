@@ -1,7 +1,9 @@
 .container{
-  display: block;
-  position: relative;
+  display: flex;
+  position: sticky;
+  top: 75px;
   width:250px;
+  overflow: hidden;
 }
 
 #menu {
@@ -19,7 +21,7 @@
   width: 220px;
   font-size: 18px;
   border: 1px solid #80808042;
-  background-color: red;
+  background-color: white;
 }
 
 mat-icon{
@@ -33,7 +35,11 @@ button.mat-flat-button {
 }
 
 .routerButton.active {
-  background-color: #d39f9f;
-  color: black;
+  background-image: url("/assets/texture.png");
+  background-size: 500px;
+  background-position: 60% 0;
+  background-color: #c10000;
+  color: white;
   border: 1px solid #91211e;
 }
+

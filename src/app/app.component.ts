@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {Router, RouterOutlet} from '@angular/router';
 import {EnvironmentBarComponent} from "./shared/components/environment-bar/environment-bar.component";
 import {MaterialModule} from "./shared/material.module";
-import {ContainerComponent} from "./website/container/container.component";
+import {ContainerComponent} from "./shared/container/container.component";
 import {SideNavComponent} from "./shared/components/side-nav/side-nav.component";
 
 @Component({

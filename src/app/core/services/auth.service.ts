@@ -9,6 +9,7 @@ import {environment} from '../../../environments/environment';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import * as Moment from 'moment';
+import {LogService} from "./log.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -45,9 +46,6 @@ export class AuthService {
     private _oauthService: OAuthService,
     private _oAuthStorage: OAuthStorage,
     private _router: Router,
-    private _sessionQuery: SessionQuery,
-    private _userService: UserService,
-    private _session: SessionStore,
     private _log: LogService
   ) {
   }

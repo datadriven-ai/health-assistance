@@ -1,5 +1,12 @@
 export interface Protocol {
-  protocol:number,
+  protocolsId:string,
   send: string,
-  date: Date
+  date: Date,
+  tipoOperazioni: string,
+  tipoSpesa: string,
+  status: string
+}
+export enum ProtocolStatus {
+  Nota_di_credito = 'NOTA_DI_CREDITO',
+  Fatture = 'FATTURE',
 }

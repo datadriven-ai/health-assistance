@@ -1,0 +1,26 @@
+  <mat-toolbar fxflexoffset="8px">
+    <img style="width: 60px" class="image m-10" src="assets/H_HI_bianco.png">
+    <span class="title">STS Service</span>
+   <!-- <button mat-icon-button (click)="openSideNav.emit()" class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>-->
+    <span class="example-spacer"></span>
+    <div id="profile">
+      <div class="user">
+        <div class="name-user">
+        </div>
+        <span class="example-spacer"></span>
+        <div>
+          <button mat-icon-button (click)="showInfo = !showInfo"><mat-icon class="white">person</mat-icon></button>
+        </div>
+        <div>
+          <button mat-icon-button (click)="logOut()"><mat-icon class="white">logout</mat-icon></button>
+        </div>
+      </div>
+      <div *ngIf="showInfo">
+        <app-user-info></app-user-info>
+      </div>
+    </div>
+  </mat-toolbar>
+
+

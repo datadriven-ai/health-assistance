@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   environmentName: 'local',
-  baseURL: '',
+  baseURL: 'http://127.0.0.1:8080/sts/api/v1/operazioni',
   authServer: '',
   reservationURL: '',
-  clientID: 'mdh-backoffice',
+  clientID: '',
   customToken: null,
   context: 'backoffice'
 };

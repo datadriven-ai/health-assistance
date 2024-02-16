@@ -1,0 +1,16 @@
+<h4 class="m-10">Cerca</h4>
+<div class="row-line">
+  <div class="filters">
+    <span class="title-form">Barra di Ricerca:</span>
+    <form [formGroup]="form">
+      <mat-form-field  class="primary-form" appearance="outline" >
+        <mat-label>Cerca</mat-label>
+        <input formControlName="search" matInput >
+      </mat-form-field >
+    </form>
+  </div>
+  <div class="mb-20 ml20">
+    <button (click)="search()" color="primary" class="m-10 button-custom" mat-flat-button> Cerca </button>
+  </div>
+</div>
+

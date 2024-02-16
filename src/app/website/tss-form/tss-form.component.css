@@ -5,10 +5,10 @@
   display: flex;
 }
 .primary-form{
-  width: 445px;
+  width: 49%;
 }
-.secondary-form{
-  width: 700px;
+.primary-form{
+  width: 490px;
 }
 .third-form{
   width:190px;

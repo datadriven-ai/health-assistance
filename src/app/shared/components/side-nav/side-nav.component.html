@@ -1,38 +1,39 @@
 <div class="container">
   <div id="menu">
-    <a routerLink="home">
-      <button mat-flat-button class="routerButton" routerLinkActive="active">
+    <div>
+      <a routerLink="home">
+        <button mat-flat-button class="routerButton" routerLinkActive="active">
     <span>
      <mat-icon>home</mat-icon>
       <span>Home</span>
     </span>
-      </button>
-    </a>
-    <a routerLink="/excel">
-      <button mat-flat-button class="routerButton" routerLinkActive="active">
+        </button>
+      </a>
+      <a routerLink="/dashboard/excel">
+        <button mat-flat-button class="routerButton" routerLinkActive="active">
     <span>
    <mat-icon> vertical_align_top</mat-icon>
       <span>Carica Excel</span>
     </span>
-      </button>
-    </a>
-    <a routerLink="/tss">
-      <button mat-flat-button class="routerButton" routerLinkActive="active">
-    <span>
-    <mat-icon>person</mat-icon>
-      <span>Credenziali</span>
-    </span>
-      </button>
-    </a>
-    <a routerLink="/invoice">
-      <button mat-flat-button class="routerButton" routerLinkActive="active">
+        </button>
+      </a>
+      <a routerLink="/dashboard//invoice">
+        <button mat-flat-button class="routerButton" routerLinkActive="active">
     <span>
      <mat-icon>description</mat-icon>
       <span>Fatture</span>
     </span>
-      </button>
-    </a>
+        </button>
+      </a>
+      <a routerLink="/dashboard/tss">
+        <button mat-flat-button class="routerButton" routerLinkActive="active">
+    <span>
+    <mat-icon>person</mat-icon>
+      <span>Credenziali T.S.</span>
+    </span>
+        </button>
+      </a>
+    </div>
   </div>
-
 </div>
 

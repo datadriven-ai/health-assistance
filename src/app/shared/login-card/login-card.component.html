@@ -1,0 +1,42 @@
+<div class="login-container full" fxLayoutAlign="center center" fxLayout="column">
+  <mat-card class="cont">
+    <div class="m-20">
+      <div class="login-form">
+        <img class="image m-10" src="assets/logoHealthItalia.png">
+      </div>
+      <div class="login-form">
+        <span>Accedi alla tua area riservata: </span>
+        <div class="form full-width">
+          <div class="m-10">
+            <mat-divider></mat-divider>
+          </div>
+          <mat-label class="ml20">Email:</mat-label>
+          <mat-form-field appearance="outline" >
+            <mat-label>Email</mat-label>
+            <input  matInput>
+          </mat-form-field>
+        </div>
+       <div class="form full-width">
+         <mat-label class="ml20">Password:</mat-label>
+         <mat-form-field appearance="outline" >
+           <mat-label>Password</mat-label>
+           <input type="password"  matInput>
+         </mat-form-field>
+       </div>
+        <button *ngIf="!station" (click)="chooseStation()" class="full-width" color="primary" mat-flat-button>Scegli Station </button>
+        <div *ngIf="station">
+          <div class="form full-width">
+            <mat-form-field class="primary-form" appearance="outline">
+              <mat-select placeholder="Iva">
+                <mat-option value="health-point">Health-Point</mat-option>
+                <mat-option value="sdi">SDI</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <button (click)="login()" class="full-width" color="primary" mat-flat-button>Accedi </button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+

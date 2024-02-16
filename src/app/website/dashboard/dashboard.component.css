@@ -1,0 +1,8 @@
+.side-nav-container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+img{
+  width: 200px;
+}

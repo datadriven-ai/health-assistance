@@ -8,9 +8,14 @@
 }
 
 .primary-form{
-  width: 445px;
+  width: 400px;
 }
 .form-box{
+  flex-wrap: wrap;
   display: flex;
   align-items: end;
+}
+.hint{
+  font-size: 12px;
+  margin-left: 5px;
 }

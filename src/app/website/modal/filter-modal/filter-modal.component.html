@@ -1,0 +1,39 @@
+<mat-divider></mat-divider>
+<h4 class="m-10">Filtri</h4>
+<form [formGroup]="filtersForm">
+      <div class="row-line">
+        <div class="filters">
+          <span class="title-form">Periodo {{invoice ? 'Data Emissione' : ''}}:</span>
+          <div class="flex-container filters-form">
+            <mat-form-field appearance="outline" class="primary-form">
+              <mat-label>Da - A </mat-label>
+              <mat-date-range-input
+                [rangePicker]="campaignOnePicker">
+                <input matStartDate placeholder="inizio" formControlName="start">
+                <input matEndDate placeholder="fine" formControlName="end">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="primary-form">
+              <mat-select formControlName="state" placeholder="Tipo di Operazione" >
+                <mat-option value="I">Invio</mat-option>
+                <mat-option value="C">Cancellazione</mat-option>
+                <mat-option value="R">Rimborso</mat-option>
+                <mat-option value="V">Variazione</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="primary-form">
+              <mat-select formControlName="type"  placeholder="Tipo Spesa">
+                <mat-option value="SR">Prestazioni Sanitarie</mat-option>
+                <mat-option value="IC">Prestazioni Chirurgia Estetica</mat-option>
+                <mat-option value="AA">Altre Prestazioni</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="mb-20 ml20">
+          <button (click)="filter()" color="primary" class="m-10 button-custom" mat-flat-button> Filtra </button>
+        </div>
+      </div>
+</form>

@@ -26,10 +26,11 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatExpansionModule} from "@angular/material/expansion";
-import {MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
+import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 
 const COMPONENTS = [
   MatCardModule,
@@ -67,7 +68,9 @@ const COMPONENTS = [
   MatFormFieldModule,
   MatDatepickerModule,
   FormsModule,
-  ReactiveFormsModule
+  MatPaginator,
+  ReactiveFormsModule,
+  MatSort, MatSortModule,
 ];
 
 @NgModule({

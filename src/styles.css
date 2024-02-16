@@ -31,6 +31,9 @@ margin-top: 10px;
 .mb-20{
   margin-bottom: 20px;
 }
+.ml5{
+  margin-left: 5px;
+}
 .ml15{
 margin-left: 15px;
 }
@@ -61,6 +64,13 @@ mat-form-field{
 
 .error-color{
   color: #e30000;
+}
+.warning_color{
+  color: #ffff4b;
+}
+
+.white{
+  color: white;
 }
 
 .button-container{
