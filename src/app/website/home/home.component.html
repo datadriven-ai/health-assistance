@@ -3,22 +3,63 @@
       <h2 class="ml20"> Dashboard  </h2>
       <span class="example-spacer"> </span>
   </div>
-    <mat-card class="table-card m-20">
+  <div class="flex-container">
+    <mat-card style="height: 240px; min-width: 476px" class="ml20">
       <div class="m-10">
-        <h3>Mario Rossi</h3>
-        <h4>Ultime operazioni su Tessera Sanitaria:</h4>
-        <div class="text-container">
-          <mat-icon>watch_later</mat-icon> <span class="ml20">Ultima Data Invio: <span style="font-weight: bold">{{date |  date: 'dd/MM/yyyy'}} </span> da: <span style="font-weight: bold">Maria rossi</span></span>
+        <div>
+          <div class="flex-container m-20">
+            <span style="font-weight: bold">Operazioni File Tessera Sanitaria:</span>
+          </div>
+          <div class="flex-container mb-20 ml20">
+            <mat-icon class="mr10">calendar_today</mat-icon> <span>Ultima Data di Invio:</span>
+          </div>
+          <div class=ml10>
+            <div class="text-container">
+              <mat-icon class="mr10">watch_later</mat-icon>
+              <span><span style="font-weight: bold"> Data: </span> <span>{{date |  date: 'dd/MM/yyyy'}} </span> </span>
+            </div>
+            <div class="text-container">
+              <mat-icon class="mr10">person</mat-icon>
+              <span><span style="font-weight: bold"> Utenza: </span> <span>Mario Rossi </span> </span>
+            </div>
+            <div class="text-container">
+              <mat-icon class="mr10">domain</mat-icon>
+              <span><span style="font-weight: bold"> Azienda: </span> <span>Web Mutua</span> </span>
+            </div>
+          </div>
         </div>
-        <br>
-        <div  class="text-container">
-          <mat-icon>watch_later</mat-icon> <span class="ml20">Ultima modifica della Parola Chiave dell'Utenza Tessera Sanitaria : <span style="font-weight: bold">{{date |  date: 'dd/MM/yyyy'}}</span> da: <span style="font-weight: bold">Maria rossi</span> </span>
-        </div>
-        <br>
       </div>
     </mat-card>
-    <mat-card class="table-card m-20">
+    <mat-card style="height: 240px; min-width: 476px" class="ml20">
       <div class="m-10">
+        <div>
+          <div class="flex-container m-20">
+           <span style="font-weight: bold">Utenza Tessera Sanitaria:</span>
+          </div>
+          <div class="flex-container mb-20 ml20">
+            <mat-icon class="mr10">border_color</mat-icon> <span>Modifica Parola Chiave:</span>
+          </div>
+          <div class=ml10>
+              <div class="text-container">
+                <mat-icon class="mr10">watch_later</mat-icon>
+                <span><span style="font-weight: bold"> Data: </span> <span>{{date |  date: 'dd/MM/yyyy'}} </span> </span>
+              </div>
+              <div class="text-container">
+                <mat-icon class="mr10">person</mat-icon>
+                <span><span style="font-weight: bold"> Utenza: </span> <span>Mario Rossi </span> </span>
+              </div>
+              <div class="text-container">
+                <mat-icon class="mr10">domain</mat-icon>
+                <span><span style="font-weight: bold"> Azienda: </span> <span>Web Mutua</span> </span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+    <mat-card class="table-card m-20">
+      <div class="m-20">
         <div class=" title-container">
           <h3 >Protocolli</h3>
           <span class="example-spacer"></span>
@@ -58,10 +99,6 @@
         <ng-container matColumnDef="tipoSpesa" >
           <th  mat-header-cell *matHeaderCellDef>Tipo Spesa</th>
           <td mat-cell *matCellDef="let element">{{ element.tipoSpesa}}</td>
-        </ng-container>
-        <ng-container matColumnDef="status" >
-          <th  mat-header-cell *matHeaderCellDef>Stato</th>
-          <td mat-cell *matCellDef="let element">{{ element.status}}</td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let emprow; columns: displayedColumns"></tr>

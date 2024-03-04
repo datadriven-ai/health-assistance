@@ -5,14 +5,16 @@
 export const environment = {
   production: false,
   environmentName: 'local',
-  baseURL: 'http://127.0.0.1:8080/sts/api/v1/operazioni',
-  authServer: '',
-  reservationURL: '',
-  clientID: '',
+  surveyApiKey: 'e579d8f6588b7be42911fd9e5554bb4e',
+  baseURL: 'http://localhost:4200',
+  authServer: 'https://identityserver4test.webmutua.com',
+  postLogoutRedirectUri: 'http://localhost:4200/redirect',
+  clientID: 'STS',
+  context: 'medic',
+  automaticSilentRenew: true,
+  silentRedirectUri: 'http://localhost:4200/assets/silent-refresh.html',
   customToken: null,
-  context: 'backoffice'
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

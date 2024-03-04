@@ -12,6 +12,7 @@ import {FormGroup} from "@angular/forms";
 import {ProtocolsService} from "../services/protocols.service";
 import {InvoicesService} from "../services/invoices.service";
 import {HttpClientModule} from "@angular/common/http";
+import {InvoicesQuery} from "../../core/stores/invoices/invoices.query";
 
 @Component({
   selector: 'app-invoice-table',
@@ -27,18 +28,19 @@ export class InvoiceTableComponent implements OnInit{
   showFilters: boolean = false;
   constructor(
     private invoicesService: InvoicesService,
+    private invoiceQuery: InvoicesQuery,
     private dialog: MatDialog) {}
   @Output() openSideNav = new EventEmitter();
   pageSizes = [5, 10];
   displayedColumns = ['invoiceId', 'numberInvoice', 'protocol','payment','emissionDate', 'fiscalCode', 'amount', 'paymentData', 'status'];
     data : Invoice[] = [
-      {invoiceId: '1',numberInvoice: 1, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 123,paymentData: this.date, status: 'prova' },
-      {invoiceId: '2',numberInvoice: 2, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 432,paymentData: this.date, status: 'prova'  },
-      {invoiceId: '3',numberInvoice: 3, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 432,paymentData: this.date, status: 'prova' },
-      {invoiceId: '4',numberInvoice: 4, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 654,paymentData: this.date, status: 'prova' },
-      {invoiceId: '5',numberInvoice: 5, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 765,paymentData: this.date, status: 'prova' },
-      {invoiceId: '6',numberInvoice: 6, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 876,paymentData: this.date, status: 'prova' },
-      {invoiceId: '7',numberInvoice: 7, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 987,paymentData: this.date, status: 'prova' },
+      {invoiceId: '1',numberInvoice: 1, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 123,paymentData: this.date, status: 'inviata'},
+      {invoiceId: '2',numberInvoice: 2, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 432,paymentData: this.date, status: 'Errore'},
+      {invoiceId: '3',numberInvoice: 3, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 432,paymentData: this.date, status: 'inviata'},
+      {invoiceId: '4',numberInvoice: 4, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 654,paymentData: this.date, status: 'inviata'},
+      {invoiceId: '5',numberInvoice: 5, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 765,paymentData: this.date, status: 'inviata'},
+      {invoiceId: '6',numberInvoice: 6, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 876,paymentData: this.date, status: 'Errore'},
+      {invoiceId: '7',numberInvoice: 7, protocol: 1, payment: 'MP08', emissionDate: this.date, fiscalCode: 'CRDMTT96D11H501F', amount: 987,paymentData: this.date, status: 'Errore'},
 
   ];
   @ViewChild('paginator') paginator: MatPaginator;
@@ -53,7 +55,9 @@ export class InvoiceTableComponent implements OnInit{
     this.dataSource.paginator = this.paginatorPageSize;
   }
 
-  search(f: FormGroup){
+  search(f: FormGroup, c:string){
+    this.invoiceQuery.updateMeta('status', c);
+    this.invoicesService.g().subscribe(res => console.log(res));
     const s = f.get('search').value;
     this.dataSource.filter = s.trim().toLowerCase();
   }

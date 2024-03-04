@@ -4,7 +4,6 @@ export interface Protocol {
   date: Date,
   tipoOperazioni: string,
   tipoSpesa: string,
-  status: string
 }
 export enum ProtocolStatus {
   Nota_di_credito = 'NOTA_DI_CREDITO',

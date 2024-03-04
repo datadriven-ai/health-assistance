@@ -18,6 +18,7 @@ export class FilterModalComponent {
     end: new FormControl(''),
     state: new FormControl(''),
     type: new FormControl(''),
+    agency: new FormControl(''),
   });
    today = new Date();
    month = this.today.getMonth();

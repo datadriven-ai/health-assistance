@@ -4,7 +4,16 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {provideOAuthClient} from "angular-oauth2-oidc";
+import { provideHttpClient } from '@angular/common/http';
+import {UserService} from "./website/services/user.service";
+
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimations(), provideAnimationsAsync()]
+  providers: [provideRouter(routes),
+    provideAnimations(),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    UserService,
+    provideOAuthClient()]
 };

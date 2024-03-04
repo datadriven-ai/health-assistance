@@ -20,6 +20,7 @@ export class ImportExcelComponent implements OnInit {
     state: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
     iva: new FormControl('', Validators.required),
+    agency: new FormControl('', Validators.required),
   });
 
   formFile = new FormGroup({

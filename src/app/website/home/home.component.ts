@@ -23,6 +23,7 @@ import {HttpClient} from "@angular/common/http";
 import {LogService} from "../../core/services/log.service";
 import {ProtocolsStore} from "../../core/stores/protocols/protocols.store";
 import {ProtocolsService} from "../services/protocols.service";
+import {Section} from "../import-excel/error-validation/error-validation.component";
 
 @Component({
   selector: 'app-home',
@@ -33,15 +34,22 @@ import {ProtocolsService} from "../services/protocols.service";
   providers: [ProtocolsService],
 })
 export class HomeComponent implements OnInit{
+  folders: any[] = [
+    {
+      date: new Date(),
+      user: 'Mario Rossi',
+      agency: 'Health Point'
+    },
+  ];
   protocols : Protocol[] = [
-    {protocolsId: '244', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie', status: ''},
-    {protocolsId: '546', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie' ,status: ''},
-    {protocolsId: '54353', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie', status: ''},
-    {protocolsId: '4324', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie', status: ''},
-    {protocolsId: '234', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie', status: ''},
-    {protocolsId: '234', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie', status: ''},
-    {protocolsId: '432', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie' ,status: ''},
-    {protocolsId: '432', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie', status: ''},
+    {protocolsId: '244', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
+    {protocolsId: '546', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
+    {protocolsId: '54353', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
+    {protocolsId: '4324', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
+    {protocolsId: '234', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
+    {protocolsId: '234', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
+    {protocolsId: '432', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
+    {protocolsId: '432', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
   ];
   pageSizes = [5, 10];
   dataSource = new MatTableDataSource(this.protocols);
@@ -55,7 +63,7 @@ export class HomeComponent implements OnInit{
     private _liveAnnouncer: LiveAnnouncer,
     private dialog: MatDialog) {}
   @Output() openSideNav = new EventEmitter();
-  displayedColumns = ['protocolsId', 'send', 'date', 'tipoOperazioni', 'tipoSpesa', 'status'];
+  displayedColumns = ['protocolsId', 'send', 'date', 'tipoOperazioni', 'tipoSpesa'];
 
   ngOnInit() {
   }

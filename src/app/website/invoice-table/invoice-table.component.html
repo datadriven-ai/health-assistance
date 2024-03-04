@@ -17,7 +17,7 @@
       </div>
       <mat-divider></mat-divider>
       <div  *ngIf="showSearch">
-        <app-search-modal (formSearch)="search($event)"></app-search-modal>
+        <app-search-modal (formSearch)="search($event, 'nota_di_credito')"></app-search-modal>
       </div>
       <div *ngIf="showFilters">
         <app-filter-modal

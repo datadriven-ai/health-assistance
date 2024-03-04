@@ -10,11 +10,14 @@
         <div class="name-user">
         </div>
         <span class="example-spacer"></span>
-        <div>
-          <button mat-icon-button (click)="showInfo = !showInfo"><mat-icon class="white">person</mat-icon></button>
-        </div>
-        <div>
-          <button mat-icon-button (click)="logOut()"><mat-icon class="white">logout</mat-icon></button>
+        <div class="flex-container">
+         <span class=" stationTitle mt-10 mr-10">Health-Point</span>
+          <div>
+            <button mat-icon-button (click)="showInfo = !showInfo"><mat-icon class="white">person</mat-icon></button>
+          </div>
+          <div>
+            <button mat-icon-button (click)="logOut()"><mat-icon class="white">logout</mat-icon></button>
+          </div>
         </div>
       </div>
       <div *ngIf="showInfo">

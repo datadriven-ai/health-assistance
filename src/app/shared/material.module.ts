@@ -70,6 +70,7 @@ const COMPONENTS = [
   FormsModule,
   MatPaginator,
   ReactiveFormsModule,
+  MatCardModule,
   MatSort, MatSortModule,
 ];
 

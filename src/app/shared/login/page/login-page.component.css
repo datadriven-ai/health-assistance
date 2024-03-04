@@ -1,0 +1,30 @@
+:host {
+  height: 100%;
+}
+
+#login {
+  padding: 0;
+  width: 850px;
+  height: 500px;
+}
+
+mat-card-content {
+  margin-bottom: 0;
+}
+
+p {
+  margin: 0;
+}
+
+.login-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cont{
+  background-color: #F8F8F8;
+  display: flex;
+  flex-direction: row;
+}
+

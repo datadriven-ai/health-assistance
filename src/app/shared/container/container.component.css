@@ -45,3 +45,7 @@ mat-toolbar{
 .name-user{
   margin-top: -3px;
 }
+.stationTitle{
+  color: white;
+  font-size: 18px;
+}

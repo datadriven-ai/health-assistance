@@ -1,0 +1,14 @@
+h2 {
+  font-weight: bold;
+}
+
+.image{
+  height: 50px;
+}
+
+
+.login-form{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}

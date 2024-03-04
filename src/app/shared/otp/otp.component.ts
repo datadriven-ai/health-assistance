@@ -1,23 +1,25 @@
 import {Component, OnInit} from '@angular/core';
+import {LoginComponent} from "../login/components/login-component/login.component";
 import {MaterialModule} from "../material.module";
-import {Router} from "@angular/router";
 import {CommonModule} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-login-card',
+  selector: 'app-otp',
   standalone: true,
   imports: [MaterialModule, CommonModule],
-  templateUrl: './login-card.component.html',
-  styleUrl: './login-card.component.css'
+  templateUrl: './otp.component.html',
+  styleUrl: './otp.component.css'
 })
-export class LoginCardComponent implements OnInit{
+export class OtpComponent  implements OnInit{
+
   station: boolean = false;
   constructor(
     private _router: Router,
   ) {
   }
-ngOnInit() {
-}
+  ngOnInit() {
+  }
   login(){
     this._router.navigateByUrl('/redirect').then(r => {} );
   }

@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import {LoginCardComponent} from "../shared/login-card/login-card.component";
 import {RedirectComponent} from "../shared/redirect/redirect.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HomeComponent} from "./home/home.component";

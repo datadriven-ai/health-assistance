@@ -1,3 +1,4 @@
+
 .login-container{
   display: flex;
   align-items: center;
@@ -5,7 +6,7 @@
 }
 
 .left-card-section {
-  background-position-x: 100px;
+  background-position-x: 80px;
   background-position-y: 15px;
   background-size: 400px;
   background-repeat: no-repeat;
