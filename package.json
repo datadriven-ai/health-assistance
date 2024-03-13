@@ -38,6 +38,7 @@
     "akita": "github:datorama/akita",
     "angular-oauth2-oidc": "^15.0.1",
     "angular-oauth2-oidc-jwks": "^17.0.0",
+    "cors": "^2.8.5",
     "jwt-decode": "^4.0.0",
     "material-colors": "^1.2.6",
     "material-theme-creator": "^3.2.1",

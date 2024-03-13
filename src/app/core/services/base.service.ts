@@ -22,18 +22,21 @@ export class BaseService {
     protected _log: LogService,
     protected _store?: EntityStore | Store,
   ) {
+    console.log(_store);
     if (_store) {
       this.store = _store;
     }
   }
 
   protected get(path: string, setStore = false): Observable<any> {
+    console.log(this.store);
     if (this.store && setStore) {this.store.setLoading(true); }
     return this._http.get<any>(this.baseURL + path).pipe(
       share(),
       catchError(response => {
         if (setStore  && this.isEntityStore) {
           this.store!.setError(this.handleError(response));
+          console.log(this.store);
           (this.store as EntityStore).set([]);
           this.store!.update({paginationResponse: undefined});
         }
@@ -48,6 +51,7 @@ export class BaseService {
           (this.store as EntityStore).set(response.content ? response.content : response);
           this.store!.setError(false);
         }
+        console.log(this.store);
         return response && response.content ? response.content : response;
       })
     );

@@ -6,18 +6,18 @@
       </div>
       <div class="login-form">
 
-        <div>
+        <div >
           <div class="form full-width">
             <mat-label class="ml20">Scegli il profilo con cui vuoi accedere:</mat-label>
+            <form [formGroup]="form">
             <mat-form-field class="primary-form" appearance="outline">
-              <mat-select placeholder="Azienda">
-                <mat-option value="">Health-Point</mat-option>
-                <mat-option value="">Health Assistance</mat-option>
-                <mat-option value="">BackOffice</mat-option>
+              <mat-select formControlName="ente" placeholder="Azienda">
+                <mat-option *ngFor="let ente of enti" [value]="ente">{{ente.nome}}</mat-option>
               </mat-select>
             </mat-form-field>
+            </form>
           </div>
-          <button (click)="login()" class="full-width" color="primary" mat-flat-button>Accedi </button>
+          <button [disabled]="!form.valid" (click)="addEnte()" class="full-width" color="primary" mat-flat-button>Accedi </button>
         </div>
       </div>
     </div>

@@ -12,7 +12,9 @@ import {AuthService} from '../services/auth.service';
   ) {
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this._auth.isLogged) {
+    const currentUser = this._auth.currentUserValue;
+    console.log(currentUser);
+    if (currentUser) {
       return true;
     } else {
       this._router.navigate(['login']);

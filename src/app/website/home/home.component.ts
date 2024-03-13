@@ -24,6 +24,9 @@ import {LogService} from "../../core/services/log.service";
 import {ProtocolsStore} from "../../core/stores/protocols/protocols.store";
 import {ProtocolsService} from "../services/protocols.service";
 import {Section} from "../import-excel/error-validation/error-validation.component";
+import {ProtocolsQuery} from "../../core/stores/protocols/protocols.query";
+import {SessionStore} from "../../core/stores/session/session.store";
+import {SessionQuery} from "../../core/stores/session/session.query";
 
 @Component({
   selector: 'app-home',
@@ -34,6 +37,9 @@ import {Section} from "../import-excel/error-validation/error-validation.compone
   providers: [ProtocolsService],
 })
 export class HomeComponent implements OnInit{
+  protocols: Protocol[];
+  user:any;
+  dataSource: MatTableDataSource<Protocol>;
   folders: any[] = [
     {
       date: new Date(),
@@ -41,7 +47,7 @@ export class HomeComponent implements OnInit{
       agency: 'Health Point'
     },
   ];
-  protocols : Protocol[] = [
+ /* protocols : Protocol[] = [
     {protocolsId: '244', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
     {protocolsId: '546', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
     {protocolsId: '54353', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
@@ -50,9 +56,8 @@ export class HomeComponent implements OnInit{
     {protocolsId: '234', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
     {protocolsId: '432', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
     {protocolsId: '432', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-  ];
+  ];*/
   pageSizes = [5, 10];
-  dataSource = new MatTableDataSource(this.protocols);
   showSearch: boolean = false;
   showFilters: boolean = false;
   date = new Date();
@@ -60,22 +65,36 @@ export class HomeComponent implements OnInit{
   @ViewChild('paginatorPageSize') paginatorPageSize: MatPaginator;
   constructor(
     private protocolsService: ProtocolsService,
+    private protocolsQuery: ProtocolsQuery,
+    private sessionStore: SessionStore,
+    private _sessionQuery: SessionQuery,
+    private protocolsStore: ProtocolsStore,
     private _liveAnnouncer: LiveAnnouncer,
     private dialog: MatDialog) {}
   @Output() openSideNav = new EventEmitter();
-  displayedColumns = ['protocolsId', 'send', 'date', 'tipoOperazioni', 'tipoSpesa'];
+  displayedColumns= ['id', 'stato', 'dataCreazione', 'esito'];
 
   ngOnInit() {
+    console.log(localStorage, this.sessionStore);
+    this.user = JSON.parse(localStorage.getItem('me'));
+    console.log(this.user);
+    this.protocolsService.getProtocols().subscribe(res=> {
+      console.log(this.protocolsStore._value());
+      this.protocols = res;
+      this.dataSource = new MatTableDataSource(this.protocols);
+      console.log(res, this.dataSource, );
+      this.dataSource.paginator = this.paginatorPageSize;
+      console.log(this.dataSource);
+    });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginatorPageSize;
+
   }
 
   search(f: FormGroup){
     const s = f.get('search').value;
     this.dataSource.filter = s.trim().toLowerCase();
-    console.log( this.dataSource.filter);
   }
 
 
@@ -85,10 +104,10 @@ export class HomeComponent implements OnInit{
     const end = new Date(f.get('end').value);
     const array = [];
     this.dataSource.filteredData.filter(t => {
-      const d = new Date(t.date.setHours(0,0,0,0));
-      if(d.getTime().valueOf() >= start.getTime().valueOf() && d.getTime().valueOf() <= end.getTime().valueOf()){
-        array.push(t);
-      }
+   //   const d = new Date(t.date.setHours(0,0,0,0));
+     // if(d.getTime().valueOf() >= start.getTime().valueOf() && d.getTime().valueOf() <= end.getTime().valueOf()){
+        //array.push(t);
+      // }
     });
     this.dataSource = new MatTableDataSource(array);
     this.dataSource.paginator = this.paginatorPageSize;
@@ -96,7 +115,6 @@ export class HomeComponent implements OnInit{
 
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
-    console.log(sortState);
     if (sortState.direction) {
       console.log(sortState.direction);
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`).then(r => {} );

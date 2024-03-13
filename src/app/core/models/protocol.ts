@@ -1,9 +1,12 @@
 export interface Protocol {
-  protocolsId:string,
-  send: string,
-  date: Date,
-  tipoOperazioni: string,
-  tipoSpesa: string,
+  canale: string;
+  dataCreazione: string;
+  dettaglioList: string;
+  esito: string;
+  id: number;
+  numeroProtocollo: string;
+  stato: string;
+  tipo: string;
 }
 export enum ProtocolStatus {
   Nota_di_credito = 'NOTA_DI_CREDITO',

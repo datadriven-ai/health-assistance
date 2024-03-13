@@ -4,6 +4,8 @@ import {SessionStore} from '../stores/session/session.store';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 import Moment from "moment";
+import {AuthService} from "../services/auth.service";
+import {LogService} from "../services/log.service";
 
 
 @Injectable()
@@ -14,22 +16,20 @@ export class MaintenanceGuard implements CanActivate {
     private _router: Router,
     private _sessionStore: SessionStore,
     private _sessionQuery: SessionQuery,
+    private _auth: AuthService,
+    private _log: LogService,
   ) {}
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const maintenance: any = await this._http.get('/assets/systemInfo/maintenance.json').toPromise();
-    if (maintenance && !maintenance.inMaintenance) {
+    const currentUser = this._auth.currentUserValue;
+    console.log( localStorage.getItem('ente_id'));
+    if (localStorage.getItem('ente_id')) {
       return true;
+    } else {
+      this._router.navigate(['otp']);
+      this._log.log('[Guard] Token not valid.');
+      return false;
     }
-    const params = route.queryParams;
-    if (params['bypass']) {
-      this._sessionStore.update({bypass: params['bypass']})
-    }
-    if (this._sessionQuery.bypassToken) {
-      const check = Moment().format('D-M-YYYY');
-      if (this._sessionQuery.bypassToken === check) { return true;}
-    }
-    return this._router.navigateByUrl('/info');
   }
 
 }

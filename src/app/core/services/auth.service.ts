@@ -10,45 +10,48 @@ import {SessionQuery} from '../stores/session/session.query';
 import {LogService} from './log.service';
 import {UserService} from "../../website/services/user.service";
 import {User, UserManager, UserManagerSettings, WebStorageStateStore} from "oidc-client";
-import {BehaviorSubject, Observable, of} from "rxjs";
-import {LocalUser} from "../models/session";
-import {AuthInterceptor} from "../guards/auth.interceptor";
+import {BehaviorSubject, Observable} from "rxjs";
+
+export class LocalUser {
+  id: string;
+  username: string;
+  password: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  token?: string;
+  refreshToken?: string | undefined;
+  tokenExpire?: Date | undefined;
+  tokenExpireIn?: number | undefined;
+
+  constructor(u: User) {
+    // console.log(u);
+    this.username = u.profile.preferred_username;
+    if (u.profile.email != null) {
+      this.email = u.profile.email;
+    }
+    this.id = u.profile.sub;
+    this.firstName = u.profile.given_name;
+    this.lastName = u.profile.family_name;
+    this.token = u.access_token;
+    this.refreshToken = u.refresh_token;
+    this.tokenExpireIn = u.expires_in;
+
+    const d = new Date();
+    const ex = d.getTime() + u.expires_in * 1000;
+    const dx = new Date(ex);
+    this.tokenExpire = dx;
+  }
+}
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+
   public user: User = null;
   public currentUser: Observable<LocalUser>;
+
   private currentUserSubject: BehaviorSubject<LocalUser>;
-  private custom_token: string | undefined = environment.customToken;
   private manager = new UserManager(getClientSettings());
-
-
- private authConfig: AuthConfig = {
-    issuer: environment.authServer,
-    requireHttps: environment.production,
-   redirectUri:  window.location.origin + '/redirect',
-    clientId: environment.clientID,
-    scope: 'openid dati_integrativi profile email roles STS.WebApi offline_access',
-    showDebugInformation: environment.production,
-    skipIssuerCheck: true,
-    strictDiscoveryDocumentValidation: false,
-  };
-
-  get isLogged(): boolean {
-    return this._oauthService.hasValidAccessToken();
-  }
-
-  get token(): string {
-    return this._oauthService.getAccessToken();
-  }
-
-  get userId(): number {
-    return this._sessionQuery.user.userId;
-  }
-
-  get editURL(): string {
-    return environment.authServer + 'account?referrer=' + environment.clientID + '&redirect_uri=' + encodeURIComponent(window.location.origin);
-  }
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -62,141 +65,121 @@ export class AuthService {
     private _log: LogService,
     private router: Router,
   ) {
-    this._oauthService.events.subscribe(res=> console.log(res));
-    this._oauthService.events.subscribe(e => this.eventHandler(e));
-    if (this.custom_token && !environment.production) {
-      this._log.log('[Auth Service] Set Token: ' + this.custom_token);
-      this._log.log(this.custom_token);
-      this._oAuthStorage.setItem('access_token', this.custom_token);
-      this._oAuthStorage.setItem('expires_in', '1621382253');
-    }
+
+    this.manager.events.addUserLoaded(() => {
+      this.manager.getUser().then(u => {
+        this.user = u;
+        this.setCurrentUserPublic(u);
+      });
+    });
+
+    this.manager.getUser().then(user => {
+      this.user = user;
+    });
+
     this.currentUserSubject = new BehaviorSubject<LocalUser>(JSON.parse(localStorage.getItem('currentUser-sts')));
     this.currentUser = this.currentUserSubject.asObservable();
-    const httpClientModule = new HttpClientModule();
   }
 
-  private async configure(): Promise<void> {
-    this._oauthService.configure(this.authConfig);
-    await this._oauthService.loadDiscoveryDocumentAndTryLogin();
-    await this.setUserInfo();
+  public get currentUserValue(): LocalUser {
+    this.currentUserSubject.subscribe(res=> console.log(res));
+    console.log(this.currentUserSubject);
+    return this.currentUserSubject.getValue();
   }
 
-  private async setUserInfo(): Promise<void> {
-    console.log('setUser',this._oauthService);
-    if (this._oauthService.hasValidAccessToken()) {
-      this._log.log('[Auth Service] expiration date: ' + Moment(this._oauthService.getAccessTokenExpiration()));
-      this._userService.getUserInfo();
-    } else {
-      console.log('ciao');
-      this._log.log('[Auth Service] JTW Token non più valido.');
-     this.logout();
+  public getUserDescription(): string {
+    if (this.currentUserValue) {
+      return `${this.currentUserValue?.firstName} ${this.currentUserValue?.lastName}`;
     }
+    return null;
+  }
+  setCurrentUserPublic(u: User): void {
+    this.setCurrentUser(new LocalUser(u));
   }
 
-  async connect() {
-    await this.configure();
+  startAuthentication(): Promise<void> {
+    return this.manager.signinRedirect();
   }
 
-  async initAuth() {
-    this._oauthService.configure(this.authConfig);
-    this._oauthService.setupAutomaticSilentRefresh();
-    await this._oauthService.loadDiscoveryDocumentAndTryLogin();
-    await this.setUserInfo();
-  }
-
-
-  login() {
-    this.initAuth();
-   this._oauthService.initCodeFlow();
-  }
-
-
-  logout() {
-    this._oauthService.logOut();
-  }
-
-  isLoggedIn(): Observable<boolean> {
-    return of(this._oauthService.hasValidIdToken());
-  }
-
-  getAccessToken(): string {
-    const accessToken = this._oauthService.getAccessToken();
-    return accessToken;
+  silentRefresh(): Promise<User> {
+    return this.manager.signinSilent()
+      .catch(r => {
+        console.log(r);
+        console.log('REFRESH TOKEN SCADUTO!');
+        this.logout();
+        return null;
+      });
   }
 
   completeAuthentication(): Promise<void> {
     return this.manager.signinRedirectCallback().then(user => {
-      console.log('user=', user);
-      if(user.access_token){
-        this._oAuthStorage.setItem('access_token', this.custom_token);
-      }else{
-        this.logout();
-      }
-      console.log('manager', user);
+      console.log(user);
       this.user = user;
       this.setCurrentUser(new LocalUser(user));
-     // this.router.navigate([this.getLastRoute() ?? '/']);
-      this._router.navigateByUrl('dashboard');
+      console.log(user, this.currentUserSubject.getValue());
+      this.router.navigate(['otp']);
     });
   }
 
-  getLastRoute(): string {
-    const lr = localStorage.getItem('lastRoute-diversamente');
-    console.log('GetLastRoute: ' + lr);
-    localStorage.removeItem('lastRoute-diversamente');
-    return lr;
+  forceLogOut(): void {
+    this.logoutInternal();
+    // this.router.navigate(['log-out']);
+    this.logoutIds4();
   }
+
+  logout(): void {
+    console.log('Logout...');
+    this.logoutInternal();
+    this.finishLogout();
+  }
+
+  getToken(): string {
+    return this.currentUserValue.token;
+    // return this.user?.access_token;
+  }
+
+
+  public finishLogout = () => {
+    if (this.router.url !== environment.homeUrl) {
+      this.router.navigate(['login']);
+    } else {
+      this.startAuthentication();
+    }
+    return this.manager.signoutRedirectCallback();
+  };
+
   private setCurrentUser(user: LocalUser): void {
     localStorage.setItem('currentUser-sts', JSON.stringify(user));
-    this.connect().then(r => r);
-    console.log('currentUserSubject', this.currentUserSubject);
     this.currentUserSubject.next(user);
   }
-  startAuthentication(): Promise<void> {
-    this.configure();
-    return this.manager.signinRedirect();
+  setLastRoute(r: string): void {
+    if (!localStorage.getItem('lastRoute-sts')) {
+      console.log('SetLastRoute: ' + r);
+      localStorage.setItem('lastRoute-sts', r);
+    }
   }
 
-  /*async login() {
-    this._oauthService.initImplicitFlow();
-  }*/
+  getLastRoute(): string {
+    const lr = localStorage.getItem('lastRoute-sts');
+    console.log('GetLastRoute: ' + lr);
+    localStorage.removeItem('lastRoute-sts');
+    return lr;
+  }
 
- /* logout(): void {
-   // this._oauthService.logOut();
-   // this._router.navigateByUrl('/');
-  }*/
+  private logoutInternal(): void {
+    localStorage.removeItem('currentUser-sts');
+    localStorage.removeItem('ente_id');
+    localStorage.removeItem('ente_nome');
+    this.currentUserSubject.next(null);
+  }
 
-  private async eventHandler(event: OAuthEvent) {
-    switch (event.type) {
-      case 'token_expires':
-        this._log.log('[Identity-Server] Token expired');
-        break;
-      case 'token_received':
-        this._log.log('[Identity-Server] Token received');
-        break;
-      case 'token_refresh_error':
-        this._log.log('[Identity-Server] Refresh Error');
-        this.logout();
-        break;
-      case 'invalid_nonce_in_state':
-        this._log.log('[Identity-Server] Token Error');
-        this.logout();
-        break;
-      case 'discovery_document_load_error':
-        this._log.log('[Identity-Server] KeyCloak non raggiungibile.');
-        this._snackBar.open('Impossibile effettuare la Login', 'CHIUDI');
-        break;
-      case 'silent_refresh_timeout':
-        break;
-      case 'discovery_document_loaded':
-        if ((event as any).info) {
-          this._log.log('[Identity-Server] Identity-Server connesso.');
-        }
-        break;
-      default:
-        this._log.log('[KeyCloak Event] ' + event.type);
-    }
-
+  private logoutIds4(): void {
+    this.manager.getUser().then(u => {
+      if (u){
+        console.log('Logout ids4...');
+        this.manager.signoutRedirect();
+      }
+    });
   }
 }
 

@@ -6,6 +6,9 @@ import {MaterialModule} from "../material.module";
 import {Router, RouterModule} from "@angular/router";
 import {UserInfoComponent} from "../../website/user-info/user-info.component";
 import {CommonModule} from "@angular/common";
+import {AuthService} from "../../core/services/auth.service";
+import {SessionQuery} from "../../core/stores/session/session.query";
+import {UserInfo} from "angular-oauth2-oidc";
 
 /**
  * @title Toolbar overview
@@ -18,14 +21,16 @@ import {CommonModule} from "@angular/common";
   imports: [MaterialModule, RouterModule, UserInfoComponent, CommonModule],
 })
 export class ContainerComponent implements OnInit{
+  ente = localStorage.getItem('ente_nome');
   @Output() openSideNav = new EventEmitter<any>();
   showInfo = false;
-  constructor(private _router: Router,) {
+  constructor(private _router: Router,
+              private _auth: AuthService) {
   }
   ngOnInit() {
   }
 
   logOut(){
-    this._router.navigateByUrl('').then(r => {} );
+    this._auth.logout();
   }
 }

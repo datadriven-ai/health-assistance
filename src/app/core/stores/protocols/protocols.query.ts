@@ -16,9 +16,9 @@ export class ProtocolsQuery extends MetaQuery<ProtocolsFilter, Protocol> {
 
   hasReservations$ = this.selectCount().pipe(map(res => res > 0 ));
   mainPage$ = this.selectAll({limitTo: 5, filterBy: res =>
-      (res.send === ProtocolStatus.Nota_di_credito ||
-        res.send === ProtocolStatus.Fatture) &&
-      toMoment(res.date).format('MMDD') === toMoment().format('MMDD')
+      (res.dataCreazione === ProtocolStatus.Nota_di_credito ||
+        res.dataCreazione === ProtocolStatus.Fatture) &&
+      toMoment(res.dataCreazione).format('MMDD') === toMoment().format('MMDD')
   });
 
   todaysReservations$ = this.mainPage$.pipe(map(reservations => reservations.length > 0));

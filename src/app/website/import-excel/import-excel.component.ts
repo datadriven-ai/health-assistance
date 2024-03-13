@@ -6,21 +6,25 @@ import {DragDropZoneComponent} from "../drag-drop-zone/drag-drop-zone.component"
 import {ErrorValidationComponent} from "./error-validation/error-validation.component";
 import {ConfirmValidationComponent} from "./confirm-validation/confirm-validation.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ProtocolsService} from "../services/protocols.service";
+import {ProtocolsQuery} from "../../core/stores/protocols/protocols.query";
 
 @Component({
   selector: 'app-import-excel',
   templateUrl: './import-excel.component.html',
   standalone: true,
   imports: [CommonModule, MaterialModule, RouterModule, DragDropZoneComponent, ErrorValidationComponent, ConfirmValidationComponent],
+  providers: [ProtocolsService],
   styleUrls: ['./import-excel.component.css']
 })
 export class ImportExcelComponent implements OnInit {
   file: File | undefined;
   form = new FormGroup({
-    state: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
-    iva: new FormControl('', Validators.required),
-    agency: new FormControl('', Validators.required),
+    tipoOperazione: new FormControl('', Validators.required),
+    tipoSpesa: new FormControl('', Validators.required),
+    tipoDocumentoSpesa: new FormControl('', Validators.required),
+    flagOpposizione:  new FormControl(false, Validators.required),
+  //iva: new FormControl('', Validators.required),
   });
 
   formFile = new FormGroup({
@@ -32,13 +36,17 @@ export class ImportExcelComponent implements OnInit {
   });
   showValidation:boolean = false;
 
-  constructor() { }
+  constructor(
+    private protocolsService: ProtocolsService,
+    private protocolsQuery: ProtocolsQuery,
+  ) { }
 
   ngOnInit(): void {
   }
   validateForm(){
     this.showValidation = !this.showValidation;
-    console.log(this.form.getRawValue(), this.formFile);
+    console.log(this.form.getRawValue(), this.file);
+    this.protocolsService.uploadDocument(this.file, this.form.getRawValue()).subscribe(res=> console.log(res));
   }
 
   fileAdded(file: any): void {

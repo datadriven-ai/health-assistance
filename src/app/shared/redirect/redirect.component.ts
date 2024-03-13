@@ -25,27 +25,9 @@ export class RedirectComponent  implements OnInit{
     private route: ActivatedRoute,
     private _user: SessionQuery,
   ) {
-    this._auth.completeAuthentication();
-    this.route.queryParams.subscribe((p) => {
-      console.log(p);
-     // this._auth.startAuthentication();
-    });
-   console.log(localStorage.getItem('currentUser-sts').valueOf());
-    this.user$.pipe(untilDestroyed(this)).subscribe(user => {
-      console.log('user', user, this._auth);
-      if (this._auth.isLogged) {
-        this._log.log('[Auth] is Logged. Redirecting to dashboard');
-        if (this._user) {
-         this._router.navigateByUrl('dashboard');
-          return;
-        }
-      } else {
-      // this._router.navigateByUrl('');
-        this._log.log('[Auth] is not logged.');
-      }
-    });
   }
 
   ngOnInit(): void {
+      this._auth.completeAuthentication();
   }
 }

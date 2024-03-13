@@ -4,6 +4,7 @@ import {MaterialModule} from "../material.module";
 import {OAuthModule} from "angular-oauth2-oidc";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "../../core/guards/auth.interceptor";
+import {ErrorInterceptor} from "../../core/interceptors/error.interceptor";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,6 @@ import {AuthInterceptor} from "../../core/guards/auth.interceptor";
       useClass: AuthInterceptor,
       multi: true
     }
-  ]
+  ],
 })
 export class LoginModule { }

@@ -7,4 +7,5 @@ export const environment = {
   clientID: 'mdh-backoffice',
   customToken: null,
   context: 'backoffice',
+  homeUrl: '/redirect',
 };

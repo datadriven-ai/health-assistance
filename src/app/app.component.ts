@@ -28,6 +28,5 @@ export class AppComponent {
   title = 'BaseProject';
 
   constructor(private _authService: AuthService) {
-  //  this._authService.initAuth();
   }
 }

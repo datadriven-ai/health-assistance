@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgFor} from '@angular/common';
 import {FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
@@ -25,7 +25,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatExpansionModule} from "@angular/material/expansion";
+import {MatExpansionModule, MatExpansionPanelContent} from "@angular/material/expansion";
 import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from "@angular/material/paginator";
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -71,6 +71,8 @@ const COMPONENTS = [
   MatPaginator,
   ReactiveFormsModule,
   MatCardModule,
+  MatExpansionPanelContent,
+  NgFor,
   MatSort, MatSortModule,
 ];
 

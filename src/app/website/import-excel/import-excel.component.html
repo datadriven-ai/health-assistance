@@ -11,10 +11,10 @@
         <div class="m-10">
           <h3 class="ml5">Carica File e compila il form:</h3>
           <mat-hint class="hint">Controllare le <a routerLink="/dashboard/tss">credenziali dell'utenza</a> di tessera sanitaria per il caricamento del file</mat-hint>
+          <form [formGroup]="form">
           <div class="form-box">
-            <form [formGroup]="form">
             <mat-form-field class="primary-form" appearance="outline">
-              <mat-select formControlName="state" placeholder="Tipo di Operazione" >
+              <mat-select formControlName="tipoOperazione" placeholder="Tipo di Operazione" >
                 <mat-option value="I">Invio</mat-option>
                 <mat-option value="C">Cancellazione</mat-option>
                 <mat-option value="R">Rimborso</mat-option>
@@ -22,22 +22,27 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field class="primary-form" appearance="outline">
-              <mat-select formControlName="type"  placeholder="Tipo Spesa">
+              <mat-select formControlName="tipoSpesa"  placeholder="Tipo Spesa">
                 <mat-option value="SR">Prestazioni Sanitarie</mat-option>
                 <mat-option value="IC">Prestazioni Chirurgia Estetica</mat-option>
                 <mat-option value="AA">Altre Prestazioni</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="primary-form" appearance="outline">
+              <mat-select formControlName="tipoDocumentoSpesa"  placeholder="Tipo Documento Spesa">
+                <mat-option value="F">Fatture</mat-option>
+              </mat-select>
+            </mat-form-field>
+          <!--  <mat-form-field class="primary-form" appearance="outline">
               <mat-select formControlName="iva" placeholder="Iva">
                 <mat-option value="Aliquota">Aliquota</mat-option>
                 <mat-option value="22">22%</mat-option>
                 <mat-option value="0">0%</mat-option>
               </mat-select>
-            </mat-form-field>
-            </form>
+            </mat-form-field>-->
           </div>
-          <mat-checkbox class="example-margin">Flag Opposizione</mat-checkbox>
+          <mat-checkbox formControlName="flagOpposizione" class="example-margin">Flag Opposizione</mat-checkbox>
+          </form>
           <app-drag-drop-zone (fileAdded)="fileAdded($event)" ></app-drag-drop-zone>
         </div>
         <mat-dialog-actions class="button-container">

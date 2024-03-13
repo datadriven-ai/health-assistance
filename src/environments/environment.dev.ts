@@ -6,5 +6,6 @@ export const environment = {
   reservationURL: '',
   clientID: 'mdh-backoffice',
   customToken: '',
-  context: 'backoffice'
+  context: 'backoffice',
+  homeUrl: '/redirect',
 };

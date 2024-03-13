@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {AuthService} from "../../../../core/services/auth.service";
 import {LoginModule} from "../../login.module";
 import {MaterialModule} from "../../../material.module";
+import {OAuthService} from "angular-oauth2-oidc";
 
 @Component({
   selector: 'hpm-login-component',
@@ -16,10 +17,11 @@ export class LoginComponent{
   constructor(
     private _auth: AuthService,
     private _router: Router,
-  ) { }
+    private _oauthService: OAuthService,
+  ) {
+  }
 
   login(): void {
-    console.log(this._auth);
     this._auth.startAuthentication();
   }
 

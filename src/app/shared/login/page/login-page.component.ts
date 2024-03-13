@@ -32,19 +32,16 @@ export class LoginPageComponent {
     private _auth: AuthService,
     private _user: SessionQuery,
   ) {
-    this.user$.subscribe(res => console.log('user=',res, this._user))
-    this.user$.pipe(untilDestroyed(this)).subscribe(user => {
+    /*this.user$.pipe(untilDestroyed(this)).subscribe(user => {
+      console.log(user);
       if (this._auth.isLogged) {
         this._log.log('[Auth] is Logged. Redirecting to dashboard');
-     //   this._router.navigateByUrl('/dashboard');
+        this._router.navigateByUrl('otp');
       } else {
         this._log.log('[Auth] is not logged.');
+        this._router.navigateByUrl('');
       }
-    });
-  }
-
-  login(): void {
-    this._auth.login();
+    });*/
   }
 
 }

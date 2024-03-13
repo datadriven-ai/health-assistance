@@ -10,14 +10,14 @@ import {MaterialModule} from "./shared/material.module";
 import {HomeComponent} from "./website/home/home.component";
 import {RedirectComponent} from "./shared/redirect/redirect.component";
 import {OtpComponent} from "./shared/otp/otp.component";
+import {MaintenanceGuard} from "./core/guards/maintenance.guard";
 
 export const routes: Routes = [
-
   {path: '', component: LoginPageComponent},
   {path: 'login', component: LoginPageComponent},
   {path: 'redirect', component: RedirectComponent},
-  {providers:[AuthGuard, HttpClientModule],canActivate: [AuthGuard], path: 'otp', component:OtpComponent},
-  { providers:[AuthGuard, HttpClientModule],canActivate: [AuthGuard], path: 'dashboard',
+  {providers:[AuthGuard, HttpClientModule],canActivate: [AuthGuard],path: 'otp', component:OtpComponent},
+  { providers:[AuthGuard, MaintenanceGuard, HttpClientModule],canActivate: [AuthGuard, MaintenanceGuard], path: 'dashboard',
     loadChildren: () => import('./website').then(m => m.WebsiteRoutes)
   },
 ];
