@@ -35,6 +35,8 @@ export class ImportExcelComponent implements OnInit {
     documentType: new FormControl('', Validators.required),
   });
   showValidation:boolean = false;
+  error:boolean =false;
+  id= '';
 
   constructor(
     private protocolsService: ProtocolsService,
@@ -44,9 +46,11 @@ export class ImportExcelComponent implements OnInit {
   ngOnInit(): void {
   }
   validateForm(){
-    this.showValidation = !this.showValidation;
     console.log(this.form.getRawValue(), this.file);
-    this.protocolsService.uploadDocument(this.file, this.form.getRawValue()).subscribe(res=> console.log(res));
+    this.protocolsService.uploadDocument(this.file, this.form.getRawValue()).subscribe(res=> {
+      this.showValidation = true;
+      this.id = res;
+    });
   }
 
   fileAdded(file: any): void {

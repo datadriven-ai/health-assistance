@@ -80,7 +80,8 @@ export class BaseService {
 
   protected put(path: string, body: any = {}, setStore = false): any {
     this._log.log('[PUT]: ' + this.baseURL + path);
-    return  this._http.put<any>(this.baseURL + path, body).pipe(
+    console.log(this.baseURL, HttpClient);
+    return  this._http.put<any>(this.baseURL + path, body, ).pipe(
       share(),
       catchError(response => {
         if (setStore  && this.store) { this.store.setError(this.handleError(response));}

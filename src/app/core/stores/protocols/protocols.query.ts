@@ -14,15 +14,15 @@ export interface ProtocolsFilter extends QueryState {
 @Injectable({providedIn: 'root'})
 export class ProtocolsQuery extends MetaQuery<ProtocolsFilter, Protocol> {
 
-  hasReservations$ = this.selectCount().pipe(map(res => res > 0 ));
+ /* hasReservations$ = this.selectCount().pipe(map(res => res > 0 ));
   mainPage$ = this.selectAll({limitTo: 5, filterBy: res =>
-      (res.dataCreazione === ProtocolStatus.Nota_di_credito ||
+      (res.dataCreazione === ProtocolStatus. ||
         res.dataCreazione === ProtocolStatus.Fatture) &&
       toMoment(res.dataCreazione).format('MMDD') === toMoment().format('MMDD')
   });
 
   todaysReservations$ = this.mainPage$.pipe(map(reservations => reservations.length > 0));
-  todaysReservationsCount$ = this.mainPage$.pipe(map(res => res ? res.length : 0));
+  todaysReservationsCount$ = this.mainPage$.pipe(map(res => res ? res.length : 0));*/
 
   override get meta(): any {
     const meta = super.meta;

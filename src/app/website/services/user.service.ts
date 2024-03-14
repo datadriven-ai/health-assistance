@@ -22,44 +22,15 @@ export class UserService extends BaseService {
     this.get( '/utente/me', false).pipe(tap(response => localStorage.setItem('me', JSON.stringify(response)))).subscribe();
   }
 
-  getSingleMedic(medicId): Observable<any> {
-    return this.get('medic/retrievebyid/' + medicId);
+  getUltimaOperazione(): Observable<any> {
+    return this.get('/utente/operazione/ultima');
   }
 
-  getConventions(): Observable<any[]> {
-    return this.get('secretary/conventions/all');
+  getUltimaModificaPassword():  Observable<any>  {
+    return this.get('/utente/ente/credenziali');
   }
 
-  putUpdateProfileMedic(body): Observable<any> {
-    return this.put('medic/profile/update', body);
+  putTSSPassword(body: any): Observable<any> {
+   return this.put('/utente/ente/'+localStorage.getItem('ente_id')+'/credenziali', body);
   }
-
-  putUpdateProfileSecretary(body): Observable<any> {
-    return this.put('secretary/profile/update', body);
-  }
-
-  creationProfileMedic(body): Observable<any> {
-    return this.post('secretary/medic/registration', body);
-  }
-
-  verifyProfile(email, fiscalCode, phoneNumber): Observable<any> {
-    return this.get('public/check_user?email=' + email + '&fiscalCode=' + fiscalCode + '&phoneNumber=' + phoneNumber)
-      .pipe(catchError(err => of(true)));
-  }
-
-  resetpassword(id): Observable<any> {
-    return this.post('secretary/medic/' + id + '/resetPassword', {});
-  }
-
-  getMedicById(id): Observable<any> {
-    return this.get('medic/retrievebyid/' + id);
-  }
-
-  calculateFiscalCode(userForm: any): Observable<string> {
-    return this._http.get(this.baseURL + 'public/patient/fiscalcode?surname=' +
-      userForm.surname + '&name=' + userForm.name + '&gender=' +
-      userForm.gender + '&birthDate=' +  userForm.birthDate + '&city=' + userForm.birthPlace, {responseType: "text"})
-      .pipe(catchError(err => of('')));
-  }
-
 }

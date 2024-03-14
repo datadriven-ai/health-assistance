@@ -35,6 +35,9 @@
       <div *ngIf="errorLabel" class="m-20 flex-container">
         <mat-icon class="error-color">warning</mat-icon> <span class="ml5 error-color"> Le password non sono Uguali</span>
       </div>
+    <div *ngIf="successful" class="m-20 flex-container">
+      <mat-icon class="confirm-color">check_circle</mat-icon> <span class="ml5 confirm-color"> La modifica ha avuto successo </span>
+    </div>
       <mat-dialog-actions class="button-container">
         <span class="example-spacer"></span>
         <button (click)="resetForm()" color="accent" class="m-10 button-custom" mat-flat-button>Resetta</button>

@@ -16,15 +16,15 @@
           <div class=ml10>
             <div class="text-container">
               <mat-icon class="mr10">watch_later</mat-icon>
-              <span><span style="font-weight: bold"> Data: </span> <span>{{user.ultimaOperazione.dataCreazione |  date: 'dd/MM/yyyy'}} </span> </span>
+              <span><span style="font-weight: bold"> Data: </span> <span>{{ultimaDataInvio?.dataCreazione | date: 'dd/MM/yyyy' }}</span> </span>
             </div>
             <div class="text-container">
               <mat-icon class="mr10">person</mat-icon>
-              <span><span style="font-weight: bold"> Utenza: </span> <span>{{user.nome}} {{user.cognome}}</span> </span>
+              <span><span style="font-weight: bold"> Utenza: </span> <span>{{user?.nome}} {{user?.cognome}}</span> </span>
             </div>
             <div class="text-container">
               <mat-icon class="mr10">domain</mat-icon>
-              <span><span style="font-weight: bold"> Azienda: </span> <span>{{user.ultimaOperazione.canale}}</span> </span>
+              <span><span style="font-weight: bold"> Azienda: </span> <span>{{ultimaDataInvio?.canale}}</span> </span>
             </div>
           </div>
         </div>
@@ -42,15 +42,15 @@
           <div class=ml10>
               <div class="text-container">
                 <mat-icon class="mr10">watch_later</mat-icon>
-                <span><span style="font-weight: bold"> Data: </span> <span>{{date |  date: 'dd/MM/yyyy'}} </span> </span>
+                <span><span style="font-weight: bold"> Data: </span> <span>{{modificaPassword?.dataModificaCredenziali |  date: 'dd/MM/yyyy'}} </span> </span>
               </div>
               <div class="text-container">
                 <mat-icon class="mr10">person</mat-icon>
-                <span><span style="font-weight: bold"> Utenza: </span> <span>Mario Rossi </span> </span>
+                <span><span style="font-weight: bold"> Utenza: </span> <span>{{user?.nome}} {{user?.cognome}}</span> </span>
               </div>
               <div class="text-container">
                 <mat-icon class="mr10">domain</mat-icon>
-                <span><span style="font-weight: bold"> Azienda: </span> <span>Health-Point</span> </span>
+                <span><span style="font-weight: bold"> Azienda: </span> <span>{{modificaPassword?.nome}}</span> </span>
               </div>
           </div>
         </div>
@@ -91,6 +91,10 @@
         <ng-container matColumnDef="dataCreazione" >
           <th  mat-header-cell *matHeaderCellDef>Data</th>
           <td mat-cell *matCellDef="let element">{{ element.dataCreazione | date: 'dd/MM/yyyy' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="tipo" >
+          <th  mat-header-cell *matHeaderCellDef>Tipo Operazione</th>
+          <td mat-cell *matCellDef="let element">{{ element.tipo}}</td>
         </ng-container>
         <ng-container matColumnDef="esito" >
           <th  mat-header-cell *matHeaderCellDef>Esito</th>

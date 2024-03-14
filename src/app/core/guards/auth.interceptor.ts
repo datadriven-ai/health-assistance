@@ -20,12 +20,14 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private coreService: CoreService
-  ) {}
+  ) {
+  }
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    console.log('intercept', request);
     const n = Math.random();
     this.coreService.showLoader(n);
 
@@ -73,9 +75,8 @@ export class AuthInterceptor implements HttpInterceptor {
       if (token) {
         request = this.setHeaderToken(request, token);
       }
-
-      return next
-        .handle(request)
+      console.log(next);
+      return next.handle(request)
         .pipe(finalize(() => this.coreService.hideLoader(n)));
     }
   }
@@ -90,6 +91,7 @@ export class AuthInterceptor implements HttpInterceptor {
       setHeaders: {
         'Accept-Language': 'en-US,en;q=0.9,it;q=0.8',
         Authorization: `Bearer ${token}`,
+        'Mock': 'true',
         'Ente': localStorage.getItem('ente_id') ? localStorage.getItem('ente_id') : ' ' ,
       },
     }

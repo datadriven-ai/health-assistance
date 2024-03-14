@@ -47,13 +47,16 @@
         </div>
         <mat-dialog-actions class="button-container">
           <span class="example-spacer"></span>
-          <button [disabled]="!form.valid" (click)="validateForm()" color="primary" class="m-10 button-custom" mat-flat-button> Validazione</button>
+          <button [disabled]="!form.valid" (click)="validateForm()" color="primary" class="m-10 button-custom" mat-flat-button> Invio</button>
         </mat-dialog-actions>
       </div>
     </mat-card>
 
   <div *ngIf="showValidation">
-    <app-error-validation></app-error-validation>
-    <app-confirm-validation></app-confirm-validation>
+    <app-confirm-validation
+    [id]= id></app-confirm-validation>
+  </div>
+  <div *ngIf="error">
+  <app-error-validation></app-error-validation>
   </div>
 </div>

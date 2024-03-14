@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MaterialModule} from "../../../shared/material.module";
 
 @Component({
@@ -11,5 +11,6 @@ import {MaterialModule} from "../../../shared/material.module";
   styleUrl: './confirm-validation.component.css'
 })
 export class ConfirmValidationComponent {
+  @Input() id; string = 0;
 
 }

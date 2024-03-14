@@ -6,9 +6,8 @@ export interface Protocol {
   id: number;
   numeroProtocollo: string;
   stato: string;
-  tipo: string;
+  tipo: ProtocolStatus;
 }
 export enum ProtocolStatus {
-  Nota_di_credito = 'NOTA_DI_CREDITO',
-  Fatture = 'FATTURE',
+  I = 'Invio',
 }

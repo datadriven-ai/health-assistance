@@ -11,7 +11,7 @@ import {LoadingExcelComponent} from "../loading-excel/loading-excel.component";
 import {RouterModule} from "@angular/router";
 import {TssFormComponent} from "../tss-form/tss-form.component";
 import {FilterModalComponent} from "../modal/filter-modal/filter-modal.component";
-import {Protocol} from "../../core/models/protocol";
+import {Protocol, ProtocolStatus} from "../../core/models/protocol";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {SearchModalComponent} from "../modal/search-modal/search-modal.component";
@@ -27,6 +27,7 @@ import {Section} from "../import-excel/error-validation/error-validation.compone
 import {ProtocolsQuery} from "../../core/stores/protocols/protocols.query";
 import {SessionStore} from "../../core/stores/session/session.store";
 import {SessionQuery} from "../../core/stores/session/session.query";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-home',
@@ -39,24 +40,9 @@ import {SessionQuery} from "../../core/stores/session/session.query";
 export class HomeComponent implements OnInit{
   protocols: Protocol[];
   user:any;
+  modificaPassword: any;
+  ultimaDataInvio: any;
   dataSource: MatTableDataSource<Protocol>;
-  folders: any[] = [
-    {
-      date: new Date(),
-      user: 'Mario Rossi',
-      agency: 'Health Point'
-    },
-  ];
- /* protocols : Protocol[] = [
-    {protocolsId: '244', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-    {protocolsId: '546', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-    {protocolsId: '54353', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-    {protocolsId: '4324', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-    {protocolsId: '234', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-    {protocolsId: '234', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-    {protocolsId: '432', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-    {protocolsId: '432', send: 'Inviata', date: new Date(), tipoOperazioni: 'Rimborso', tipoSpesa: 'Prestazioni sanitarie'},
-  ];*/
   pageSizes = [5, 10];
   showSearch: boolean = false;
   showFilters: boolean = false;
@@ -65,6 +51,7 @@ export class HomeComponent implements OnInit{
   @ViewChild('paginatorPageSize') paginatorPageSize: MatPaginator;
   constructor(
     private protocolsService: ProtocolsService,
+    private userService: UserService,
     private protocolsQuery: ProtocolsQuery,
     private sessionStore: SessionStore,
     private _sessionQuery: SessionQuery,
@@ -72,12 +59,14 @@ export class HomeComponent implements OnInit{
     private _liveAnnouncer: LiveAnnouncer,
     private dialog: MatDialog) {}
   @Output() openSideNav = new EventEmitter();
-  displayedColumns= ['id', 'stato', 'dataCreazione', 'esito'];
+  displayedColumns= ['id', 'stato', 'dataCreazione', 'esito', 'tipo'];
 
   ngOnInit() {
-    console.log(localStorage, this.sessionStore);
+    console.log(localStorage, this.sessionStore, ProtocolStatus);
     this.user = JSON.parse(localStorage.getItem('me'));
-    console.log(this.user);
+    this.userService.getUltimaOperazione().subscribe(res => this.ultimaDataInvio = res);
+    this.userService.getUltimaModificaPassword().subscribe(res => this.modificaPassword = res);
+    console.log(this.sessionStore);
     this.protocolsService.getProtocols().subscribe(res=> {
       console.log(this.protocolsStore._value());
       this.protocols = res;
