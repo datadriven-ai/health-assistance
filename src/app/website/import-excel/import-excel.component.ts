@@ -19,6 +19,7 @@ import {ProtocolsQuery} from "../../core/stores/protocols/protocols.query";
 })
 export class ImportExcelComponent implements OnInit {
   file: File | undefined;
+  messaggi=[];
   form = new FormGroup({
     tipoOperazione: new FormControl('', Validators.required),
     tipoSpesa: new FormControl('', Validators.required),
@@ -44,16 +45,22 @@ export class ImportExcelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.form.valueChanges.subscribe(res=> this.showValidation = false);
   }
   validateForm(){
     console.log(this.form.getRawValue(), this.file);
     this.protocolsService.uploadDocument(this.file, this.form.getRawValue()).subscribe(res=> {
       this.showValidation = true;
       this.id = res;
+    }, err => {
+      this.messaggi = JSON.parse(err.error).messaggi;
+      console.log(JSON.parse(err.error).messaggi);
+      this.error = true
     });
   }
 
   fileAdded(file: any): void {
+    this.showValidation = false;
     this.addFile(file);
   }
 

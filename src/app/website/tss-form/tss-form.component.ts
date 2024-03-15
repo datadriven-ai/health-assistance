@@ -40,6 +40,8 @@ export class TssFormComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit(): void {
+    console.log(JSON.parse(localStorage.getItem('form')));
+    this.form.patchValue(JSON.parse(localStorage.getItem('form')));
     this.form.valueChanges.subscribe(res => {
       if(res.password === res.re_password){
         this.errorLabel = false;
@@ -48,7 +50,8 @@ export class TssFormComponent implements OnInit {
   }
 
   saveForm(){
-    console.log(this.form.getRawValue(), this.form.get('password').value,this.form.get('re_password').value  );
+    console.log(this.form.getRawValue(), this.form.get('password').value,this.form.get('re_password').value );
+    localStorage.setItem('form',JSON.stringify(this.form.getRawValue()));
     if(this.form.get('password').value === this.form.get('re_password').value){
       const dialogRef = this.dialog.open(ConfirmModalComponent, {
         width:'600px',

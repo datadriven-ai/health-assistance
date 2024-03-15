@@ -32,8 +32,9 @@ export class OtpComponent  implements OnInit{
   ) {
   }
   ngOnInit() {
-    this.userService.getUserInfo();
-    this.enti = JSON.parse(localStorage.getItem('me')).enti;
+    this.userService.getUserInfo().subscribe(res => {
+      this.enti = JSON.parse(localStorage.getItem('me')).enti;
+    });
   }
   chooseStation(){
     this.station = !this.station;

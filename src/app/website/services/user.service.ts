@@ -18,8 +18,8 @@ export class UserService extends BaseService {
     super(_http, _log, _store);
   }
 
-  getUserInfo(): void {
-    this.get( '/utente/me', false).pipe(tap(response => localStorage.setItem('me', JSON.stringify(response)))).subscribe();
+  getUserInfo(): Observable<any> {
+   return  this.get( '/utente/me', false).pipe(tap(response => localStorage.setItem('me', JSON.stringify(response))));
   }
 
   getUltimaOperazione(): Observable<any> {

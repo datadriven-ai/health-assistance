@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MaterialModule} from "../../../shared/material.module";
 import {DatePipe} from '@angular/common';
 export interface Section {
@@ -12,20 +12,18 @@ export interface Section {
   templateUrl: './error-validation.component.html',
   styleUrl: './error-validation.component.css'
 })
-export class ErrorValidationComponent {
+export class ErrorValidationComponent implements OnInit{
+  @Input() messages: any[] = [];
   panelOpenState = false;
   folders: Section[] = [
     {
-      name: 'Riga 144:',
-      updated: 'nome utente sbagliato',
-    },
-    {
-      name: 'Riga 134:',
-      updated: 'cognome utente sbagliato',
-    },
-    {
-      name: 'Riga 134:',
-      updated: 'nome utente sbagliato',
+      name: 'Riga 2:',
+      updated: ' Codice fiscale sbagliato',
     },
   ];
+
+  ngOnInit() {
+    console.log(this.messages);
+    this.folders = this.messages;
+  }
 }

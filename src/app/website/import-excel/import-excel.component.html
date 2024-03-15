@@ -57,6 +57,8 @@
     [id]= id></app-confirm-validation>
   </div>
   <div *ngIf="error">
-  <app-error-validation></app-error-validation>
+  <app-error-validation
+    [messages]="messaggi"
+  ></app-error-validation>
   </div>
 </div>

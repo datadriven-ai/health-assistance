@@ -8,8 +8,8 @@
         @for (folder of folders; track folder) {
           <mat-list-item>
             <mat-icon matListItemIcon>play_arrow</mat-icon>
-            <div  matListItemTitle>{{folder.name}}</div>
-            <div matListItemLine>{{folder.updated}}</div>
+            <div  matListItemTitle>{{folder}}</div>
+          <!--  <div matListItemLine>{{folder.updated}}</div>-->
           </mat-list-item>
         }
       </mat-list>
@@ -19,7 +19,7 @@
     <mat-divider></mat-divider>
   </div>
   <div class="button-container">
-      <span style="margin-left: 96px" mat-subheader>Impossibile inviare file, Ricaricare file valido </span>
+      <span style="margin-left: 40px" mat-subheader>Impossibile inviare file, Ricaricare file valido </span>
       <span class="example-spacer"></span>
    <!--   <button disabled color="primary" class="m-10 button-custom" mat-flat-button> Invio</button>-->
   </div>
