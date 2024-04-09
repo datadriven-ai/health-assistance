@@ -29,8 +29,10 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field class="primary-form" appearance="outline">
-              <mat-select formControlName="tipoDocumentoSpesa"  placeholder="Tipo Documento Spesa">
-                <mat-option value="F">Fatture</mat-option>
+              <mat-select formControlName="aliquotaIva"  placeholder="Aliquota">
+                <mat-option value="N4">N4</mat-option>
+                <mat-option value="22%">22%</mat-option>
+                <mat-option value="0%">0%</mat-option>
               </mat-select>
             </mat-form-field>
           <!--  <mat-form-field class="primary-form" appearance="outline">
@@ -42,6 +44,7 @@
             </mat-form-field>-->
           </div>
           <mat-checkbox formControlName="flagOpposizione" class="example-margin">Flag Opposizione</mat-checkbox>
+            <mat-checkbox formControlName="pagamentoAnticipato" class="example-margin">Pagamento Anticipato</mat-checkbox>
           </form>
           <app-drag-drop-zone (fileAdded)="fileAdded($event)" ></app-drag-drop-zone>
         </div>
@@ -58,7 +61,13 @@
   </div>
   <div *ngIf="error">
   <app-error-validation
+    [file]="file"
+    [form]="form"
+    [disabilitare]="false"
     [messages]="messaggi"
   ></app-error-validation>
   </div>
 </div>
+
+
+<!--{"tipoOperazione": "I","tipoSpesa": "SR", "aliquotaIva": "N4", "tipoDocumentoSpesa": "F","flagOpposizione": false, "pagamentoAnticipato": true}-->

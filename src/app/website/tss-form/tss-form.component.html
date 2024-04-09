@@ -14,14 +14,14 @@
               <mat-label>Codice Identificativo</mat-label>
               <input formControlName="username"  matInput >
             </mat-form-field>
-            <mat-form-field   class="primary-form" appearance="outline" >
+            <mat-form-field class="secondary-form"  appearance="outline" >
               <mat-label>Parola Chiave</mat-label>
               <div class="flex-container">
                 <input formControlName="password" [type]=" eye ? 'text' : 'password'" matInput >
                 <mat-icon (click)="eye = !eye">remove_red_eye</mat-icon>
               </div>
             </mat-form-field>
-            <mat-form-field   class="primary-form" appearance="outline" >
+            <mat-form-field  class="secondary-form" appearance="outline" >
               <mat-label> Reinserisci Parola Chiave</mat-label>
               <div class="flex-container">
                 <input formControlName="re_password" [type]=" reinsert_eye ? 'text' : 'password'" matInput >

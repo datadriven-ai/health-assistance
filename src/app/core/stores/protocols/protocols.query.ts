@@ -5,6 +5,7 @@ import {toMoment} from '../../../shared/utils/functions';
 import {Moment} from 'moment/moment';
 import {ProtocolsStore} from "./protocols.store";
 import {Protocol, ProtocolStatus} from "../../models/protocol";
+import {Observable} from "rxjs";
 
 export interface ProtocolsFilter extends QueryState {
   status: string;
@@ -13,16 +14,14 @@ export interface ProtocolsFilter extends QueryState {
 
 @Injectable({providedIn: 'root'})
 export class ProtocolsQuery extends MetaQuery<ProtocolsFilter, Protocol> {
-
+  protocols$: Observable<Protocol[]> = this.selectAll();
  /* hasReservations$ = this.selectCount().pipe(map(res => res > 0 ));
   mainPage$ = this.selectAll({limitTo: 5, filterBy: res =>
       (res.dataCreazione === ProtocolStatus. ||
         res.dataCreazione === ProtocolStatus.Fatture) &&
       toMoment(res.dataCreazione).format('MMDD') === toMoment().format('MMDD')
-  });
+  });*/
 
-  todaysReservations$ = this.mainPage$.pipe(map(reservations => reservations.length > 0));
-  todaysReservationsCount$ = this.mainPage$.pipe(map(res => res ? res.length : 0));*/
 
   override get meta(): any {
     const meta = super.meta;

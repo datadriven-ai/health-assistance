@@ -5,6 +5,8 @@ import {toMoment} from '../../../shared/utils/functions';
 import {Moment} from 'moment/moment';
 import {InvoiceStore} from "./invoices.store";
 import {Invoice, InvoiceStatus} from "../../models/element";
+import {Observable} from "rxjs";
+import {Protocol} from "../../models/protocol";
 
 export interface InvoiceFilters extends QueryState {
   status: string;
@@ -13,16 +15,16 @@ export interface InvoiceFilters extends QueryState {
 
 @Injectable({providedIn: 'root'})
 export class InvoicesQuery extends MetaQuery<InvoiceFilters, Invoice> {
-
+  invoices$: Observable<Invoice[]> = this.selectAll();
   hasReservations$ = this.selectCount().pipe(map(res => res > 0 ));
-  mainPage$ = this.selectAll({limitTo: 5, filterBy: res =>
+ /* mainPage$ = this.selectAll({limitTo: 5, filterBy: res =>
       (res.status === InvoiceStatus.Nota_di_credito ||
         res.status === InvoiceStatus.Fatture) &&
       toMoment(res.emissionDate).format('MMDD') === toMoment().format('MMDD')
-  });
+  });*/
 
-  todaysReservations$ = this.mainPage$.pipe(map(reservations => reservations.length > 0));
-  todaysReservationsCount$ = this.mainPage$.pipe(map(res => res ? res.length : 0));
+//  todaysReservations$ = this.mainPage$.pipe(map(reservations => reservations.length > 0));
+ // todaysReservationsCount$ = this.mainPage$.pipe(map(res => res ? res.length : 0));
 
   override get meta(): any {
     const meta = super.meta;

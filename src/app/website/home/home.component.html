@@ -16,7 +16,7 @@
           <div class=ml10>
             <div class="text-container">
               <mat-icon class="mr10">watch_later</mat-icon>
-              <span><span style="font-weight: bold"> Data: </span> <span>{{ultimaDataInvio?.dataCreazione | date: 'dd/MM/yyyy' }}</span> </span>
+              <span><span style="font-weight: bold"> Data: </span> <span>{{ultimaDataInvio?.dataCreazione |  customDate }}</span> </span>
             </div>
             <div class="text-container">
               <mat-icon class="mr10">person</mat-icon>
@@ -42,7 +42,7 @@
           <div class=ml10>
               <div class="text-container">
                 <mat-icon class="mr10">watch_later</mat-icon>
-                <span><span style="font-weight: bold"> Data: </span> <span>{{modificaPassword?.dataModificaCredenziali |  date: 'dd/MM/yyyy'}} </span> </span>
+                <span><span style="font-weight: bold"> Data: </span> <span>{{modificaPassword?.dataModificaCredenziali |  customDate}} </span> </span>
               </div>
               <div class="text-container">
                 <mat-icon class="mr10">person</mat-icon>
@@ -79,17 +79,17 @@
         </div>
         <mat-divider></mat-divider>
       </div>
-      <table mat-table [dataSource]="dataSource" class="example-spacer" matSort (matSortChange)="announceSortChange($event)">
-        <ng-container matColumnDef="id" >
-            <th  mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordina">N.Protocollo</th>
-          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      <table mat-table [dataSource]="protocols$ | async" class="example-spacer" matSort (matSortChange)="announceSortChange($event)">
+        <ng-container matColumnDef="numeroProtocollo" >
+            <th  mat-header-cell *matHeaderCellDef >N.Protocollo</th>
+          <td mat-cell *matCellDef="let element">{{ element.numeroProtocollo }}</td>
         </ng-container>
         <ng-container matColumnDef="stato" >
           <th  mat-header-cell *matHeaderCellDef>Stato</th>
-          <td mat-cell *matCellDef="let element">{{ element.stato}}</td>
+          <td mat-cell *matCellDef="let element">{{ element.stato | lowercase}}</td>
         </ng-container>
         <ng-container matColumnDef="dataCreazione" >
-          <th  mat-header-cell *matHeaderCellDef>Data</th>
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordina">Data</th>
           <td mat-cell *matCellDef="let element">{{ element.dataCreazione | date: 'dd/MM/yyyy' }}</td>
         </ng-container>
         <ng-container matColumnDef="tipo" >
@@ -98,16 +98,21 @@
         </ng-container>
         <ng-container matColumnDef="esito" >
           <th  mat-header-cell *matHeaderCellDef>Esito</th>
-          <td mat-cell *matCellDef="let element">{{ element.esito?.descrizione}}</td>
+          <td mat-cell *matCellDef="let element">{{ element.esito?.descrizione | lowercase}}</td>
+        </ng-container>
+        <ng-container matColumnDef="action" >
+          <th  mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element"><button mat-icon-button (click)="infoSTS(element)"><mat-icon>perm_device_information</mat-icon></button></td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let emprow; columns: displayedColumns"></tr>
       </table>
-      <mat-paginator
-        #paginatorPageSize
-        [pageSizeOptions]="pageSizes"
-        showFirstLastButtons
-      ></mat-paginator>
+      <mat-paginator showFirstLastButtons
+                     *ngIf="pagination$ | async as p"
+                     [length]="p.totalElements"
+                     [pageIndex]="p.number"
+                     (page)="updatePage($event,p)"
+                     [pageSize]="5"></mat-paginator>
     </mat-card>
   </div>
 

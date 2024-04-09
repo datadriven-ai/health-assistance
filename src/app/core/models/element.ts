@@ -1,13 +1,14 @@
 export interface Invoice {
-  invoiceId: string,
-  numberInvoice: number,
-  protocol: number,
-  payment: string,
-  emissionDate: Date,
-  status: string,
-  fiscalCode: string,
-  amount: number,
-  paymentData: Date
+  id: number,
+  numeroFattura: string,
+  numeroProtocollo: string,
+  metodoPagamento: string,
+  importo: number,
+  dataEmissione: string,
+  dataCreazione: string,
+  cf: string,
+  canaleId: number,
+  tipo: string
 }
 
 export enum InvoiceStatus {

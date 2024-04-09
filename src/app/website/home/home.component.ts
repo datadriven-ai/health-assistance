@@ -13,7 +13,7 @@ import {TssFormComponent} from "../tss-form/tss-form.component";
 import {FilterModalComponent} from "../modal/filter-modal/filter-modal.component";
 import {Protocol, ProtocolStatus} from "../../core/models/protocol";
 import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {SearchModalComponent} from "../modal/search-modal/search-modal.component";
 import {FormControl, FormGroup} from "@angular/forms";
 import moment from "moment";
@@ -28,21 +28,28 @@ import {ProtocolsQuery} from "../../core/stores/protocols/protocols.query";
 import {SessionStore} from "../../core/stores/session/session.store";
 import {SessionQuery} from "../../core/stores/session/session.query";
 import {UserService} from "../services/user.service";
+import {Observable} from "rxjs";
+import {CustomDatePipe} from "../../shared/pipe/customDate";
+import Moment from "moment";
+import {InfoModalComponent} from "../modal/info-modal/info-modal.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MaterialModule, RouterModule, TssFormComponent, FilterModalComponent, SearchModalComponent, HttpClientModule],
+  imports: [CommonModule, MaterialModule, RouterModule, TssFormComponent, FilterModalComponent, SearchModalComponent, HttpClientModule, CustomDatePipe, InfoModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [ProtocolsService],
 })
 export class HomeComponent implements OnInit{
   protocols: Protocol[];
+  protocols$: Observable<Protocol[]>;
+  pagination$ = this.protocolsQuery.pagination$;
+  filterText$ = this.protocolsQuery.filterText$;
   user:any;
   modificaPassword: any;
   ultimaDataInvio: any;
-  dataSource: MatTableDataSource<Protocol>;
+  dataSource: Protocol[];
   pageSizes = [5, 10];
   showSearch: boolean = false;
   showFilters: boolean = false;
@@ -57,56 +64,65 @@ export class HomeComponent implements OnInit{
     private _sessionQuery: SessionQuery,
     private protocolsStore: ProtocolsStore,
     private _liveAnnouncer: LiveAnnouncer,
+    protected _dialog: MatDialog,
     private dialog: MatDialog) {}
   @Output() openSideNav = new EventEmitter();
-  displayedColumns= ['id', 'stato', 'dataCreazione', 'esito', 'tipo'];
+  displayedColumns= ['numeroProtocollo', 'stato', 'dataCreazione', 'esito', 'tipo', 'action'];
 
   ngOnInit() {
-    console.log(localStorage, this.sessionStore, ProtocolStatus);
+    console.log(this.pagination$);
     this.user = JSON.parse(localStorage.getItem('me'));
     this.userService.getUltimaOperazione().subscribe(res => this.ultimaDataInvio = res);
     this.userService.getUltimaModificaPassword().subscribe(res => this.modificaPassword = res);
     console.log(this.sessionStore);
-    this.protocolsService.getProtocols().subscribe(res=> {
-      console.log(this.protocolsStore._value());
-      this.protocols = res;
-      this.dataSource = new MatTableDataSource(this.protocols);
-      console.log(res, this.dataSource, );
-      this.dataSource.paginator = this.paginatorPageSize;
-      console.log(this.dataSource);
-    });
+    this.loadProtocols();
+    this.protocols$ = this.protocolsQuery.protocols$;
   }
 
+  loadProtocols(){
+    this.protocolsService.getProtocols().subscribe(res=> {
+      console.log(this.protocolsStore._value());
+      //this.dataSource = this.protocols;
+    });
+  }
   ngAfterViewInit() {
-
   }
 
   search(f: FormGroup){
-    const s = f.get('search').value;
-    this.dataSource.filter = s.trim().toLowerCase();
+    console.log( f.get('search').value);
+    //this.protocolsQuery.updateMeta('cf', f.get('search').value );
+    this.protocolsQuery.updateMeta('numProtocollo', f.get('search').value );
+   // this.protocolsQuery.updateMeta('sort', 'desc');
+    this.loadProtocols();
   }
 
+  updatePage(page: PageEvent, p): void {
+    console.log(p);
+    this.protocolsQuery.updateMeta('page', page.pageIndex);
+    this.loadProtocols();
+  }
 
   filter(f: FormGroup){
-    this.dataSource = new MatTableDataSource(this.protocols);
-    const start = new Date(f.get('start').value);
-    const end = new Date(f.get('end').value);
+    this.dataSource = this.protocols;
+    const start = Moment(f.get('start').value) ? Moment(f.get('end').value).format('DD/MM/YYYY'): null;
+    const end = Moment(f.get('end').value) ? Moment(f.get('end').value).format('DD/MM/YYYY') : null;
+    this.protocolsQuery.updateMeta('dataDa', start);
+    this.protocolsQuery.updateMeta('dataA', end);
+    this.protocolsQuery.updateMeta('stato', f.get('state').value);
+    this.loadProtocols();
     const array = [];
-    this.dataSource.filteredData.filter(t => {
-   //   const d = new Date(t.date.setHours(0,0,0,0));
-     // if(d.getTime().valueOf() >= start.getTime().valueOf() && d.getTime().valueOf() <= end.getTime().valueOf()){
-        //array.push(t);
-      // }
-    });
-    this.dataSource = new MatTableDataSource(array);
-    this.dataSource.paginator = this.paginatorPageSize;
+    console.log(f, start, end);
+    this.dataSource = array;
   }
 
   /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
+    console.log(sortState.direction);
     if (sortState.direction) {
       console.log(sortState.direction);
+      this.protocolsQuery.updateMeta('sort', 'dataCreazione,' + sortState.direction );
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`).then(r => {} );
+      this.loadProtocols();
     } else {
       this._liveAnnouncer.announce('Sorting cleared').then(r => {});
     }
@@ -114,13 +130,17 @@ export class HomeComponent implements OnInit{
 
   showF(){
     this.showFilters= !this.showFilters;
-    this.dataSource = new MatTableDataSource(this.protocols);
-    this.dataSource.paginator = this.paginatorPageSize;
+    this.dataSource = this.protocols;
+   // this.dataSource.paginator = this.paginatorPageSize;
   }
   showS(){
     this.showSearch = !this.showSearch;
-    this.dataSource = new MatTableDataSource(this.protocols);
-    this.dataSource.paginator = this.paginatorPageSize;
+    this.dataSource = this.protocols;
+  //  this.dataSource.paginator = this.paginatorPageSize;
+  }
+
+  infoSTS(element: Protocol){
+    this._dialog.open(InfoModalComponent, {data: element , width: '850px', height: '600px'});
   }
 
 

@@ -23,12 +23,20 @@ export class ProtocolsService extends BaseService {
   }
 
   getProtocols(): Observable<Protocol[]> {
-    return this.get('/operazioni', true);
+    console.log(this._query.queryString);
+    return this.get('/operazioni' + this._query.queryString, true);
   }
 
 
-  uploadDocument(file: File, info: any): Observable<string> {
+  validationDocument(file: File, info: any): Observable<string> {
     console.log(file, info);
+    const body = new FormData();
+    body.set('file', file);
+    body.set('input', new Blob([JSON.stringify(info)], {type: 'application/json'}));
+    return this._http.post( this.baseURL +'/documento-spesa/validazione', body, {responseType: "text"});
+  }
+
+  uploadDocument(file: File, info: any): Observable<string> {
     const body = new FormData();
     body.set('file', file);
     body.set('input', new Blob([JSON.stringify(info)], {type: 'application/json'}));

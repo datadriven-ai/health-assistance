@@ -19,6 +19,6 @@ export class InvoicesService extends BaseService {
   }
 
   g(){
-    return this.get(this.baseURL + '/1/documento-spesa' + this._query.queryString , true).pipe();
+    return this.get('/operazioni/documento-spesa' + this._query.queryString, true).pipe();
   }
 }

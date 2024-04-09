@@ -20,11 +20,15 @@ import {ProtocolsQuery} from "../../core/stores/protocols/protocols.query";
 export class ImportExcelComponent implements OnInit {
   file: File | undefined;
   messaggi=[];
+  disableSelect = new FormControl(true);
   form = new FormGroup({
     tipoOperazione: new FormControl('', Validators.required),
     tipoSpesa: new FormControl('', Validators.required),
-    tipoDocumentoSpesa: new FormControl('', Validators.required),
+    tipoDocumentoSpesa: new FormControl('F', Validators.required),
     flagOpposizione:  new FormControl(false, Validators.required),
+    pagamentoAnticipato: new FormControl(false, Validators.required),
+    aliquotaIva: new FormControl('', Validators.required),
+    forzoInvio: new FormControl(false, Validators.required),
   //iva: new FormControl('', Validators.required),
   });
 
@@ -45,11 +49,23 @@ export class ImportExcelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.disableSelect.setValue(true);
     this.form.valueChanges.subscribe(res=> this.showValidation = false);
+    this.form.get('tipoSpesa').valueChanges.subscribe(res=> {
+      switch (res){
+        case 'SR': this.form.get('aliquotaIva').setValue('N4');
+        break;
+        case 'IC': this.form.get('aliquotaIva').setValue('22%');
+        break;
+        case 'AA':this.form.get('aliquotaIva').setValue('N4');
+        break;
+        default: console.log('default');
+      }
+    });
   }
   validateForm(){
     console.log(this.form.getRawValue(), this.file);
-    this.protocolsService.uploadDocument(this.file, this.form.getRawValue()).subscribe(res=> {
+    this.protocolsService.validationDocument(this.file, this.form.getRawValue()).subscribe(res=> {
       this.showValidation = true;
       this.id = res;
     }, err => {

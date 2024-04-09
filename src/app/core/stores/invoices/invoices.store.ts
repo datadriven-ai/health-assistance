@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {InvoiceFilters} from "./invoices.query";
 import {Invoice} from "../../models/element";
 
-@StoreConfig({ name: 'invoices', idKey: 'invoiceId' })
+@StoreConfig({ name: 'invoices', idKey: 'id' })
 @Injectable({providedIn: 'root'})
 export class InvoiceStore extends EntityStore<InvoiceFilters, Invoice> {
   constructor() {
