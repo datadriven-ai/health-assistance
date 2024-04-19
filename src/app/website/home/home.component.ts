@@ -139,8 +139,12 @@ export class HomeComponent implements OnInit{
   //  this.dataSource.paginator = this.paginatorPageSize;
   }
 
+
   infoSTS(element: Protocol){
-    this._dialog.open(InfoModalComponent, {data: element , width: '850px', height: '600px'});
+    this.protocolsService.getInfoErrorProtocol().subscribe(res =>{
+      this._dialog.open(InfoModalComponent, {data: {element, res} , width: '600px', height: '400px'});
+      }
+    );
   }
 
 

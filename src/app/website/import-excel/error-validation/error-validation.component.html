@@ -21,6 +21,6 @@
   <div class="button-container">
       <span style="margin-left: 40px" mat-subheader>Impossibile inviare file, Ricaricare file valido </span>
       <span class="example-spacer"></span>
- <button [disabled]="disabilitare" (click)="forzoInvio()" color="primary" class="m-10 button-custom" mat-flat-button> Forzare Invio</button>
+ <button [disabled]="!forzoinvio" (click)="forzoInvio()" color="primary" class="m-10 button-custom" mat-flat-button> Forzare Invio</button>
   </div>
 </mat-card>

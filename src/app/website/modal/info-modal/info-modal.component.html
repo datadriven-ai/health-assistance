@@ -1,4 +1,41 @@
 <div class="confirm_container m-20">
-  <mat-dialog-actions>
-  </mat-dialog-actions>
+
+  <div class="m-20 info-container full-width">
+    <div class="full-width">
+      <div class="flex-container">
+        <span style="font-weight: bold; font-size: 20px ">Dettaglio protocollo:</span>
+        <span class="example-spacer"></span>
+        <mat-icon style="margin-right: 18px;margin-top: -22px;" mat-dialog-close>clear</mat-icon>
+      </div>
+      <mat-list *ngIf="!descrizione" class="ml20">
+        <div mat-subheader>Lista Errori:</div>
+        @for (folder of esito.esitiNegativi ; track folder) {
+          <mat-list-item>
+            <mat-icon matListItemIcon>play_arrow</mat-icon>
+            <div  matListItemTitle>{{folder.codice}}: {{folder.descrizione}}</div>
+            <!--  <div matListItemLine>{{folder.updated}}</div>-->
+          </mat-list-item>
+        }
+      </mat-list>
+          <mat-list *ngIf="descrizione" class="ml20">
+            <div mat-subheader>Lista Fatture:</div>
+            <mat-list-item>
+              <mat-icon matListItemIcon>send</mat-icon>
+              <div matListItemTitle>Inviate: {{esito.esitoPositivo.ninviati}}</div>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon matListItemIcon>done_outline</mat-icon>
+              <div matListItemTitle>Verificate: {{esito.esitoPositivo.naccolti}}</div>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon matListItemIcon>warning</mat-icon>
+              <div matListItemTitle>Da controllare: {{esito.esitoPositivo.nwarnings}}</div>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon  matListItemIcon>clear</mat-icon>
+              <div matListItemTitle>Errate: {{esito.esitoPositivo.nerrori}}</div>
+            </mat-list-item>
+          </mat-list>
+      </div>
+  </div>
 </div>

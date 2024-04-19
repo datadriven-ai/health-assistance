@@ -18,7 +18,7 @@ export class ErrorValidationComponent implements OnInit{
   @Input() messages: any[] = [];
   @Input() file: File;
   @Input() form: FormGroup;
-  @Input() disabilitare: boolean = false;
+  @Input() forzoinvio: boolean = false;
   panelOpenState = false;
   folders: Section[] = [
   ];

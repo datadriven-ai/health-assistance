@@ -20,6 +20,8 @@ import {ProtocolsQuery} from "../../core/stores/protocols/protocols.query";
 export class ImportExcelComponent implements OnInit {
   file: File | undefined;
   messaggi=[];
+  forzoinvio: boolean = false;
+  disableInvio: boolean = false;
   disableSelect = new FormControl(true);
   form = new FormGroup({
     tipoOperazione: new FormControl('', Validators.required),
@@ -66,23 +68,30 @@ export class ImportExcelComponent implements OnInit {
   validateForm(){
     console.log(this.form.getRawValue(), this.file);
     this.protocolsService.validationDocument(this.file, this.form.getRawValue()).subscribe(res=> {
-      this.showValidation = true;
+      console.log(JSON.parse(res));
+      this.showValidation = JSON.parse(res).validato;
+      this.error =! JSON.parse(res).validato;
+      this.disableInvio = true;
+      this.forzoinvio =  JSON.parse(res).forzoInvio;
+      this.messaggi = JSON.parse(res).errori;
       this.id = res;
     }, err => {
-      this.messaggi = JSON.parse(err.error).messaggi;
-      console.log(JSON.parse(err.error).messaggi);
+      this.messaggi = JSON.parse(err.error).errori;
+      console.log(JSON.parse(err.error).errori);
       this.error = true
     });
   }
 
   fileAdded(file: any): void {
     this.showValidation = false;
+    this.error = false;
     this.addFile(file);
   }
 
   addFile(f: File){
     this.file = f;
     this.formFile.get('fileName').setValue(f.name);
+    this.disableInvio = false;
     console.log(this.file);
   }
 }

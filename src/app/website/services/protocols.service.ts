@@ -27,6 +27,11 @@ export class ProtocolsService extends BaseService {
     return this.get('/operazioni' + this._query.queryString, true);
   }
 
+  getInfoErrorProtocol(): Observable<any> {
+    console.log(this._query.queryString);
+    return this._http.get(this.baseURL +'/operazioni' + '/26/esito');
+  }
+
 
   validationDocument(file: File, info: any): Observable<string> {
     console.log(file, info);
