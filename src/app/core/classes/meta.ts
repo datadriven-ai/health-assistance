@@ -41,7 +41,6 @@ export class MetaQuery<State extends QueryState, Entity> extends QueryEntity<Sta
   get queryString(): string {
     let q = '?';
     Object.entries(this.meta).forEach(values => {
-      console.log(values);
       return q += values[1] || values[0] === 'page' ? values[0] + '=' + values[1] + '&' : ''
     });
     return q.slice(0, -1);
@@ -80,11 +79,10 @@ export class MetaQuery<State extends QueryState, Entity> extends QueryEntity<Sta
 
   private changeMeta(field: string, value: any[] | Sort[] | PaginationResponse | string | any): any {
     const meta: any = {... this.getValue()};
-    console.log(meta, field.toString() === 'sort');
+    console.log(meta, field.toString() === 'pagination');
     switch (field) {
       case 'sort': meta.sort = value; break;
       case 'pagination': meta.pagination = value ? {...meta.pagination, ...value} : {}; break;
-      case 'page': meta.pagination = {...meta.pagination, page: value || 0}; break;
       case 'text': meta.filter = value; break;
       case 'numProtocollo': meta.numProtocollo = value; break;
       case 'dataDa': meta.dataDa = value; break;

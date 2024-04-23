@@ -101,7 +101,7 @@
           <td mat-cell *matCellDef="let element">{{ element.esito?.descrizione | lowercase}}</td>
         </ng-container>
         <ng-container matColumnDef="action" >
-          <th  mat-header-cell *matHeaderCellDef></th>
+          <th  mat-header-cell *matHeaderCellDef>Messaggio da <br> STS</th>
           <td mat-cell *matCellDef="let element"><button mat-icon-button (click)="infoSTS(element)"><mat-icon>perm_device_information</mat-icon></button></td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -112,7 +112,7 @@
                      [length]="p.totalElements"
                      [pageIndex]="p.number"
                      (page)="updatePage($event,p)"
-                     [pageSize]="5"></mat-paginator>
+                     [pageSizeOptions]="pageSizes"></mat-paginator>
     </mat-card>
   </div>
 

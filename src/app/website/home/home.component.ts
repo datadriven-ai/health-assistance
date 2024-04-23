@@ -96,9 +96,10 @@ export class HomeComponent implements OnInit{
     this.loadProtocols();
   }
 
-  updatePage(page: PageEvent, p): void {
-    console.log(p);
-    this.protocolsQuery.updateMeta('page', page.pageIndex);
+  updatePage(pagination: PageEvent, p): void {
+    console.log(p, pagination);
+    this.protocolsQuery.updateMeta('pagination', {page: pagination.pageIndex, size: pagination.pageSize});
+    console.log(this.protocolsQuery.meta);
     this.loadProtocols();
   }
 
