@@ -1,12 +1,12 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
+//http://192.168.17.155:8080/sts/api/v1/
 export const environment = {
   production: false,
   environmentName: 'local',
   surveyApiKey: 'e579d8f6588b7be42911fd9e5554bb4e',
-  baseURL: 'http://127.0.0.1:8080/sts/api/v1',
+  baseURL: 'http://192.168.17.155:8080/sts/api/v1',
   authServer: 'https://identityserver4test.webmutua.com',
   postLogoutRedirectUri: 'http://localhost:4200/redirect',
   clientID: 'STS',
