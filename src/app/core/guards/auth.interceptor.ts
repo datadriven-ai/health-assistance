@@ -91,7 +91,6 @@ export class AuthInterceptor implements HttpInterceptor {
       setHeaders: {
         'Accept-Language': 'en-US,en;q=0.9,it;q=0.8',
         Authorization: `Bearer ${token}`,
-        'Mock': 'true',
         'Ente': localStorage.getItem('ente_id') ? localStorage.getItem('ente_id') : ' ' ,
       },
     }

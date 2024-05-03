@@ -45,6 +45,7 @@
     "moment": "^2.29.4",
     "nanoid": "^5.0.5",
     "oidc-client": "^1.11.5",
+    "roboto-fontface": "^0.10.0",
     "rxjs": "~7.8.0",
     "source-map": "^0.7.4",
     "tslib": "^2.3.0",
